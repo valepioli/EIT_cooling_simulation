@@ -32,7 +32,8 @@ In this regime ($\Delta < 0$), the lasers are detuned to the blue of the atomic 
 
 ## 📂 Project Structure
 
-The code is modularized to allow fast visualization without repeating calculations:
+ `Fano_profile.py` is a simple simulation of a Fano spectrum ignoring the harmonic oscillator.
+The code inside the Folder EIT_cooling is modularized to allow fast visualization without repeating calculations:
 
 | File | Function |
 | :--- | :--- |
