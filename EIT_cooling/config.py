@@ -1,24 +1,24 @@
 import numpy as np
 from qutip import basis, tensor, fock, qeye
 
-# --- PARAMETRI FISICI ---
+# --- PHYSICAL PARAMETERS ---
 gamma = 1.0         
-nu = 0.5 * gamma    # Frequenza trappola
+nu = 0.5 * gamma    # Trap frequency
 Delta_c = -15.0 * gamma 
 Delta_p = Delta_c   
 
-# Condizione Stark shift per EIT cooling
+# Stark shift condition for EIT cooling
 Omega_c = np.sqrt(4 * np.abs(Delta_c) * nu) 
-eta = 0.35          # Lamb-Dicke
+eta = 0.35          # Lamb-Dicke parameter
 Omega_p = 0.3 * gamma 
 N_vib = 25          
 
-# --- PARAMETRI SIMULAZIONE ---
+# --- SIMULATION PARAMETERS ---
 t_stop = 3500
 t_points = 200
 t_list = np.linspace(0, t_stop, t_points)
 
-# Stato iniziale: atomo in g1, oscillatore in stato di Fock n=15
+# Initial state: atom in g1, oscillator in Fock state n=15
 psi0 = tensor(basis(3,0), fock(N_vib, 15))
 
 # --- PATH ---
