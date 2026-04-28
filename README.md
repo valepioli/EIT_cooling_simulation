@@ -1,4 +1,4 @@
-**# EIT Cooling of a Trapped Ion (Blue-Detuned)
+# EIT Cooling of a Trapped Ion (Blue-Detuned)
 
 A numerical simulation of **Electromagnetically Induced Transparency (EIT)** ground-state cooling of a single trapped ion using Python and the QuTiP library.
 
