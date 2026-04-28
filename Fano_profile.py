@@ -44,7 +44,6 @@ for dp in detuning_probe_list:
     
     # L'assorbimento I(Delta_P) è proporzionale alla popolazione di 'e' 
     # o alla parte immaginaria della coerenza del probe.
-    # Il PDF parla di "Excitation Spectrum", quindi calcoliamo la popolazione di |e>
     absorption.append(expect(e * e.dag(), rho_ss))
 
 # 4. Plot per confronto con FIG. 2
@@ -56,4 +55,12 @@ plt.xlabel("Detuning Probe $\Delta_P / \gamma$")
 plt.ylabel("Excitation $I(\Delta_P)$")
 plt.grid(True, alpha=0.2)
 plt.legend()
+
+# --- MODIFICA QUI PER SALVARE ---
+# Salva l'immagine nella cartella corrente
+filename = "fano_profile.png"
+plt.savefig(filename, dpi=300, bbox_inches='tight')
+print(f"Grafico salvato come {filename}")
+# --------------------------------
+
 plt.show()
