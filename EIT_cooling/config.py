@@ -14,7 +14,7 @@ Omega_p = 0.3 * gamma
 N_vib = 25          
 
 # --- PARAMETRI SIMULAZIONE ---
-t_stop = 1500
+t_stop = 3500
 t_points = 200
 t_list = np.linspace(0, t_stop, t_points)
 

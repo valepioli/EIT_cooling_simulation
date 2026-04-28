@@ -1,11 +1,28 @@
-import numpy as np
+import os
+from qutip import qload
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-from qutip import qload
+import numpy as np
 
-# --- 1. CARICAMENTO DATI ---
-print("Caricamento dati...")
-data = qload('eit_simulation_results')
+# --- 1. CONFIGURAZIONE PERCORSI ---
+# Trova la cartella dove si trova questo script di plotting
+script_dir = os.path.dirname(os.path.abspath(__file__))
+# Punta alla cartella results (che è nello stesso posto di simulation.py)
+results_path = os.path.join(script_dir, 'results')
+
+# Nome del file (senza estensione .qu, qload la gestisce da solo)
+filename = 'eit_simulation_results'
+full_load_path = os.path.join(results_path, filename)
+
+# --- 2. CARICAMENTO DATI ---
+print(f"Cerco i dati in: {full_load_path}.qu")
+
+if os.path.exists(f"{full_load_path}.qu"):
+    data = qload(full_load_path)
+    print("Caricamento completato con successo.")
+else:
+    raise FileNotFoundError(f"Errore: Il file {full_load_path}.qu non esiste. "
+                            "Assicurati di aver completato la simulazione.")
 
 t_list = data['t_list']
 expect_n = data['expect_n']
