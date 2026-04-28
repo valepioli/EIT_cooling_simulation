@@ -6,20 +6,20 @@ A numerical simulation of **Electromagnetically Induced Transparency (EIT)** gro
 
 ## Overview
 
-This project simulates the cooling dynamics of a three-level atom in a $\Lambda$-configuration. By utilizing the quantum interference effects of EIT, we create a Fano-like absorption profile that suppresses the heating carrier transition and maximizes the cooling transitions on the Red Sideband.
+This project implements a numerical simulation of **Electromagnetically Induced Transparency (EIT) cooling** using the QuTiP library.  
+The system models a **three-level atom in Λ configuration coupled to a quantized vibrational mode** (harmonic trap).
 
 ---
 
-## Physics and Mechanism
+## Physical Model
 
-### 1. The $\Lambda$ System
+We consider:
+- Two ground states: \(|g_1\rangle, |g_2\rangle\)
+- One excited state: \(|e\rangle\)
+- A quantized harmonic oscillator (vibrational motion of the trapped atom)
 
-The atom consists of two ground states $|g_1\rangle, |g_2\rangle$ and one excited state $|e\rangle$.
+The goal of EIT cooling is to **suppress carrier excitation and enhance red-sideband transitions**, allowing the system to relax toward low vibrational states.
 
-- A **Coupling laser** ($\Omega_c$) creates the EIT condition.
-- A **Probe laser** ($\Omega_p$) scans the transition where cooling occurs.
-
-### 2. Blue-Detuned EIT Cooling
 
 In this regime ($\Delta < 0$), the lasers are detuned to the blue of the atomic transition.
 
@@ -45,7 +45,183 @@ The code inside the Folder EIT_cooling is modularized to allow fast visualizatio
 | `plots` |plots |
 
 ---
+# EIT Cooling Simulation (QuTiP)
 
+This project implements a numerical simulation of **Electromagnetically Induced Transparency (EIT) cooling** using the QuTiP library.  
+The system models a **three-level atom in Λ configuration coupled to a quantized vibrational mode** (harmonic trap).
+
+---
+
+## Physical Model
+
+We consider:
+- Two ground states: \(|g_1\rangle, |g_2\rangle\)
+- One excited state: \(|e\rangle\)
+- A quantized harmonic oscillator (vibrational motion of the trapped atom)
+
+The goal of EIT cooling is to **suppress carrier excitation and enhance red-sideband transitions**, allowing the system to relax toward low vibrational states.
+
+---
+## Workflow
+
+### Step 1 — Define Physical Parameters
+
+We define all relevant energy scales in units of the spontaneous emission rate \(\gamma\):
+
+- \(\gamma\): spontaneous emission rate  
+- \(\nu\): trap frequency  
+- \(\Delta_c\): control laser detuning  
+- \(\Delta_p\): probe detuning  
+- \(\Omega_c\): control Rabi frequency  
+- \(\Omega_p\): probe Rabi frequency  
+- \(\eta\): Lamb-Dicke parameter  
+
+The control field is tuned to satisfy the **EIT cooling condition (Stark-shift matching)**:
+\[
+\Omega_c \approx \sqrt{4|\Delta_c|\nu}
+\]
+#### Parameters Used
+
+| Parameter | Symbol | Value |
+| :--- | :--- | :--- |
+| Trap Frequency | $\nu$ | $0.5\,\gamma$ |
+| Coupling Detuning | $\Delta_c$ | $-15.0\,\gamma$ |
+| Lamb-Dicke Parameter | $\eta$ | $0.35$ |
+| Max Phonons | $N_{\text{vib}}$ | $25$ |
+
+---
+
+### Step 2 — Initial State
+
+The system starts in a product state:
+
+- Atom in ground state \(|g_1\rangle\)
+- Motion in a Fock state \(|n=15\rangle\)
+
+\[
+|\psi_0\rangle = |g_1\rangle \otimes |n=15\rangle
+\]
+
+This allows us to observe vibrational relaxation during cooling.
+
+---
+
+### Step 3 — Build the Hilbert Space
+
+We construct the full space as:
+
+\[
+\mathcal{H} = \mathcal{H}_{atom} \otimes \mathcal{H}_{motion}
+\]
+
+Using QuTiP:
+- Atomic operators: projectors and transitions between levels
+- Motional operators: creation and annihilation operators
+
+Key operators:
+- \(a, a^\dagger\): phonon ladder operators  
+- \(n = a^\dagger a\): phonon number operator  
+- \(\sigma_{e g_i}\): atomic transitions  
+
+---
+
+### Step 4 — Hamiltonian
+
+The full Hamiltonian includes:
+
+#### 1. Free energy terms
+\[
+H_0 = -\Delta_p |g_1\rangle\langle g_1| - \Delta_c |g_2\rangle\langle g_2| + \nu a^\dagger a
+\]
+
+#### 2. Laser interactions
+
+- Control field couples \(|g_2\rangle \leftrightarrow |e\rangle\)
+- Probe field couples \(|g_1\rangle \leftrightarrow |e\rangle\) including motional coupling:
+
+\[
+H_{int} \propto \Omega_p \sigma_{eg_1}(1 + i\eta(a + a^\dagger)) + h.c.
+\]
+
+This term introduces **sideband transitions**, which are essential for cooling.
+
+---
+
+### Step 5 — Dissipation
+
+Spontaneous emission is included via collapse operators:
+
+- \(|e\rangle \rightarrow |g_1\rangle\)
+- \(|e\rangle \rightarrow |g_2\rangle\)
+
+This introduces irreversibility and allows cooling.
+
+---
+
+### Step 6 — Solve Master Equation
+
+We solve the Lindblad master equation:
+
+\[
+\frac{d\rho}{dt} = -i[H,\rho] + \sum_k \mathcal{D}[C_k]\rho
+\]
+
+Using:
+```python
+mesolve(H, psi0, t_list, c_ops, [n_op])
+```
+
+### Step 7 — EIT Spectrum
+
+To characterize the cooling mechanism, we compute the **steady-state excitation spectrum** by scanning the probe detuning \(\Delta_p\).
+
+For each value of \(\Delta_p\):
+
+1. We construct the atomic Hamiltonian in the rotating frame.
+2. We solve the **steady-state master equation**:
+   \[
+   \frac{d\rho}{dt} = 0
+   \]
+3. We evaluate the excited-state population:
+   \[
+   I(\Delta_p) = \langle e|\rho_{ss}|e\rangle
+   \]
+
+This spectrum reveals:
+- The **EIT dark state (transparency window)**
+- Suppression of carrier excitation
+- Asymmetric sideband structure (Fano-like profile)
+
+---
+
+### Step 8 — Physical Observables
+
+From the full dynamical simulation, we extract the main observables:
+
+#### Vibrational dynamics
+The expectation value of the phonon number:
+\[
+\langle n(t) \rangle
+\]
+This is the main indicator of cooling efficiency, showing how the system approaches a low-energy steady state.
+
+---
+
+#### Quantum state evolution
+The full density matrix \(\rho(t)\) is stored at each timestep, allowing reconstruction of:
+- Atomic populations
+- Vibrational populations
+- Atom–motion correlations
+
+---
+
+#### EIT spectrum
+The steady-state scan provides:
+- Excitation probability vs detuning
+- Identification of dark-state suppression
+- Cooling-resonant red sideband enhancement
+
+---
 ## How to Run
 
 ### 1. Setup Environment
@@ -84,14 +260,9 @@ The animation generated by `plotting.py` in plots consists of:
   The expectation value of the phonon number $\langle n \rangle$ vs time.
 
 ---
-![Fano profile](fano_profile.png)
+<p align="center">
+  <img src="fano_profile.png" alt="Fano profile" width="450"/>
+</p>
+
 ![Cooling Evolution](EIT_cooling/plots/cooling_evolution.gif)
 
-## Parameters Used
-
-| Parameter | Symbol | Value |
-| :--- | :--- | :--- |
-| Trap Frequency | $\nu$ | $0.5\,\gamma$ |
-| Coupling Detuning | $\Delta_c$ | $-15.0\,\gamma$ |
-| Lamb-Dicke Parameter | $\eta$ | $0.35$ |
-| Max Phonons | $N_{\text{vib}}$ | $25$ |
