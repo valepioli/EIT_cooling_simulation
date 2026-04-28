@@ -1,7 +1,5 @@
 # EIT Cooling of a Trapped Atom
 
-A numerical simulation of **Electromagnetically Induced Transparency (EIT)** ground-state cooling of a single trapped atom using Python and the QuTiP library.
-
 ---
 
 ## Overview
@@ -9,7 +7,6 @@ A numerical simulation of **Electromagnetically Induced Transparency (EIT)** gro
 This project implements a numerical simulation of **Electromagnetically Induced Transparency (EIT) cooling** using the QuTiP library.  
 The system models a **three-level atom in Λ configuration coupled to a quantized vibrational mode** (harmonic trap).
 
----
 
 ## Physical Model
 
@@ -45,23 +42,7 @@ The code inside the Folder EIT_cooling is modularized to allow fast visualizatio
 | `plots` |plots |
 
 ---
-# EIT Cooling Simulation (QuTiP)
 
-This project implements a numerical simulation of **Electromagnetically Induced Transparency (EIT) cooling** using the QuTiP library.  
-The system models a **three-level atom in Λ configuration coupled to a quantized vibrational mode** (harmonic trap).
-
----
-
-## Physical Model
-
-We consider:
-- Two ground states: \(|g_1\rangle, |g_2\rangle\)
-- One excited state: \(|e\rangle\)
-- A quantized harmonic oscillator (vibrational motion of the trapped atom)
-
-The goal of EIT cooling is to **suppress carrier excitation and enhance red-sideband transitions**, allowing the system to relax toward low vibrational states.
-
----
 ## Workflow
 
 ### Step 1 — Define Physical Parameters
