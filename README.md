@@ -41,6 +41,7 @@ The code inside the Folder EIT_cooling is modularized to allow fast visualizatio
 | `simulation.py` | Builds the Hamiltonian, solves the Master Equation (Lindblad), and saves results in `results/`. |
 | `plot.py` | Loads saved data and generates a 3-panel animation of the cooling process. |
 | `requirements.txt` | Dependencies: `numpy`, `scipy`, `matplotlib`, `qutip`. |
+
 | `results` |results |
 
 ---
@@ -64,7 +65,7 @@ python simulation.py
 ### Visualize Results
 Run the plotting script to open the interactive animation:
 ```bash
-python plot.py
+python plotting.py
 ```
 
 ---
