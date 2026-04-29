@@ -27,9 +27,7 @@ The double negation ($- \Delta$ where $\Delta = -15$) effectively places the gro
 - **Fano Resonance:** A narrow absorption peak is generated
 
 We tune the **Stark shift**:
-$$
-\delta = \frac{\Omega_c^2}{4\Delta_c}
-$$
+$$ \delta = \frac{\Omega_c^2}{4\Delta_c} $$
 
 so that this peak aligns with the **red sideband** ($\omega_{\text{trap}}$), removing phonons from the system until the ground state is reached.
 
