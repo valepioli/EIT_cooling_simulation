@@ -27,7 +27,7 @@ The double negation ($- \Delta$ where $\Delta = -15$) effectively places the gro
 - **Fano Resonance:** A narrow absorption peak is generated
 
 We tune the **Stark shift**:
-$$ \delta = \frac{\Omega_c^2}{4\Delta_c} $$
+$$\delta = \frac{\Omega_c^2}{4\Delta_c}$$
 
 so that this peak aligns with the **red sideband** ($\omega_{\text{trap}}$), removing phonons from the system until the ground state is reached.
 
@@ -84,8 +84,8 @@ $$
 
 The system starts in a product state:
 
-- Atom in ground state $|g_1\rangle$
-- Motion in a Fock state $|n=15\rangle$
+- Atom in ground state $$|g_1\rangle$$
+- Motion in a Fock state $$|n=15\rangle$$
 
 $$
 |\psi_0\rangle = |g_1\rangle \otimes |n=15\rangle
@@ -169,13 +169,9 @@ For each value of $\Delta_p$:
 
 1. We construct the atomic Hamiltonian in the rotating frame  
 2. We solve the steady-state master equation:
-$$
-\frac{d\rho}{dt} = 0
-$$
+$$\frac{d\rho}{dt} = 0$$
 3. We evaluate the excited-state population:
-$$
-I(\Delta_p) = \langle e|\rho_{ss}|e\rangle
-$$
+$$I(\Delta_p) = \langle e|\rho_{ss}|e\rangle$$
 
 This spectrum reveals:
 - The EIT dark state (transparency window)
