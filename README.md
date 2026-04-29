@@ -185,9 +185,7 @@ This spectrum reveals:
 #### Vibrational dynamics
 
 The expectation value of the phonon number is:
-$$
-\langle n(t) \rangle
-$$
+$$\langle n(t) \rangle$$
 
 This is the main indicator of cooling efficiency, showing how the system approaches a low-energy steady state.
 
