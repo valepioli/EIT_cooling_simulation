@@ -3,6 +3,15 @@ import numpy as np
 import matplotlib.pyplot as plt
 from qutip import basis, steadystate, expect, clebsch
 
+
+# =============================================================================
+# 0. PATH SETUP (SAVE RELATIVE TO SCRIPT LOCATION)
+# =============================================================================
+script_dir = os.path.dirname(os.path.abspath(__file__))
+images_dir = os.path.join(script_dir, "images")
+os.makedirs(images_dir, exist_ok=True)
+
+
 # =============================================================================
 # 1. PHYSICAL PARAMETERS & CONFIGURATION
 # =============================================================================
@@ -261,11 +270,12 @@ def calculate_eit_profile():
 
     plt.tight_layout()
 
-    # Save image
-    if not os.path.exists("images"):
-        os.makedirs("images")
-    plt.savefig("images/eit_24level_diagnostics.png", dpi=300)
-    print("Plot saved to images/eit_24level_diagnostics.png")
+    # Save to script-relative folder
+    output_path = os.path.join(images_dir, "eit_24level_diagnostics.png")
+    plt.savefig(output_path, dpi=300, bbox_inches='tight')
+
+    print(f"Plot saved to: {output_path}")
+
     plt.show()
 
 
