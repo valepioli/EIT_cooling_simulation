@@ -22,7 +22,7 @@ The goal of EIT cooling is to **suppress carrier excitation and enhance red-side
 In this regime ($\Delta < 0$), the lasers are detuned to the blue of the atomic transition
 (While `Delta_c` is numerically set to `-15.0` in the code, this represents a **physical blue detuning** ($\Delta > 0$) due to the Hamiltonian construction:
 $$H_{int} = -\Delta_p |g_1\rangle\langle g_1| - \Delta_c |g_2\rangle\langle g_2| + \dots$$
-The double negation ($- \Delta$ where $\Delta = -15$) effectively places the ground state energy below the laser frequency, ensuring the laser is tuned to the blue of the atomic resonance).
+The double negation ($- \Delta$ where $\Delta = -15$) effectively places the ground state energy below the laser frequency, ensuring the laser is tuned to the blue of the atomic resonance CHECK!!).
 
 - **Dark State:** Interference prevents absorption at the carrier frequency ($\Delta_p = \Delta_c$)
 - **Fano Resonance:** A narrow absorption peak is generated
