@@ -302,3 +302,6 @@ The simulation generates three primary plots:
 3.  **Off-resonant Leakage:** Analyzes the influence of the $F'=3$ manifold, which causes light shifts and impacts the EIT transparency.
 
 # WARNING: STILL WORKING ON IT!!!! THE FANO PROFILE IS NOW WRONG
+
+![Level Diagram](EIT_cooling_Rb/images/eit_cooling_levels.png)
+![Fano profile](EIT_cooling_Rb/images/eit_24level_diagnostics.png)
