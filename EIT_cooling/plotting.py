@@ -68,10 +68,11 @@ def update(frame):
     ax2.plot(det_scan, spec, 'k', lw=2)
     ax2.fill_between(det_scan, spec, color='blue', alpha=0.1)
     ax2.axvline(Delta_p, color='green', ls='--', label="Carrier")
-    ax2.axvline(Delta_p - nu, color='red', lw=2, label="Red Sideband (Cooling)")
-    ax2.axvline(Delta_p + nu, color='blue', lw=2, label="Blue Sideband (Heating)")
+    ax2.axvline(Delta_p + nu, color='red', lw=2, label="Red Sideband (Cooling)")
+    ax2.axvline(Delta_p - nu, color='blue', lw=2, label="Blue Sideband (Heating)")
     ax2.set_title("EIT Profile")
     ax2.legend(loc='upper right', fontsize='small')
+    #ax2.set_xlim(14.25, 15.80)
     ax2.set_xlabel("Detuning")
     
     # 3. Time evolution of <n>

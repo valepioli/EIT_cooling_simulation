@@ -4,7 +4,7 @@ from qutip import basis, tensor, fock, qeye
 # --- PHYSICAL PARAMETERS ---
 gamma = 1.0         
 nu = 0.5 * gamma    # Trap frequency
-Delta_c = -15.0 * gamma 
+Delta_c = 15.0 * gamma 
 Delta_p = Delta_c   
 
 # Stark shift condition for EIT cooling

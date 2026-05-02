@@ -31,7 +31,7 @@ def run_simulation():
     proj_g2 = tensor(basis(3,1) * basis(3,1).dag(), qeye(config.N_vib))
 
     # 2. Hamiltonian
-    H = (-config.Delta_p * proj_g1 - config.Delta_c * proj_g2 + config.nu * n_op +
+    H = (config.Delta_p * proj_g1 + config.Delta_c * proj_g2 + config.nu * n_op +
          (config.Omega_c/2.0) * (sig_eg2 + sig_eg2.dag()) +
          (config.Omega_p/2.0) * (sig_eg1 * (1 + 1j * config.eta * (a + a.dag())) + 
                           sig_eg1.dag() * (1 - 1j * config.eta * (a + a.dag()))))
@@ -52,10 +52,10 @@ def run_simulation():
 
     # 4. EIT spectrum (steady-state scan)
     print("Computing EIT spectrum...")
-    det_scan = np.linspace(config.Delta_c - 1.5, config.Delta_c + 0.5, 400)
+    det_scan = np.linspace(config.Delta_c - 1.5, config.Delta_c + 1.5, 400)
     spec = []
     for d in det_scan:
-        H_at = -d*basis(3,0)*basis(3,0).dag() - config.Delta_c*basis(3,1)*basis(3,1).dag() + \
+        H_at = +d*basis(3,0)*basis(3,0).dag() + config.Delta_c*basis(3,1)*basis(3,1).dag() + \
                (config.Omega_c/2)*(basis(3,2)*basis(3,1).dag() + basis(3,1)*basis(3,2).dag()) + \
                (0.1/2)*(basis(3,2)*basis(3,0).dag() + basis(3,0)*basis(3,2).dag())
         
