@@ -303,19 +303,13 @@ which suppresses carrier excitation and enables cooling.
 In $$^{87}$$Rb, this picture is only approximate. The atomic structure includes:
 
 - Ground states:
-  $$
-  F=1 \ (3 \ states), \quad F=2 \ (5 \ states)
-  $$
+  $$F=1 \ (3 \ states), \quad F=2 \ (5 \ states)$$
 
 - Excited states:
-  $$
-  F'=0,1,2,3 \ (\text{16 total Zeeman states})
-  $$
+  $$F'=0,1,2,3 \ (\text{16 total Zeeman states})$$
 
 Total Hilbert space:
-$$
-\mathcal{H}_{atom} = 24 \text{ levels}
-$$
+$$\mathcal{H}_{atom} = 24 \text{ levels}$$
 
 The effective $\Lambda$ system is embedded inside this larger structure and continuously perturbed by additional couplings.
 
@@ -337,9 +331,7 @@ Hyperfine splittings are defined relative to $F'=2$.
 
 #### Zeeman shifts
 
-$$
-E_Z = g_F \mu_B B m_F
-$$
+$$E_Z = g_F \mu_B B m_F$$
 
 #### Laser interaction
 
@@ -407,9 +399,7 @@ The ideal $\Lambda$ system is no longer isolated.
 ### 3.2 Two-Photon Resonance
 
 The resonance condition becomes:
-$$
-\Delta_p - \Delta_c + \Delta_Z = 0
-$$
+$$\Delta_p - \Delta_c + \Delta_Z = 0$$
 
 where $\Delta_Z$ is the Zeeman shift difference.
 
@@ -551,6 +541,6 @@ Measures excitation lost to off-resonant states.
 </p>
 
 <p align="center">
-  <img src="EIT_cooling_Rb/images/plot_fano_profile.png" width="900"/>
+  <img src="EIT_cooling_Rb/images/fano_images/plot_fano_profile.png" width="900"/>
 </p>
 
