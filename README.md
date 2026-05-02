@@ -286,8 +286,8 @@ The aim is to investigate how real atomic complexity affects:
 ### 1.1 Ideal $\Lambda$ System
 
 The standard EIT cooling scheme is based on a three-level system:
-- Two ground states: $|g_1\rangle$, $|g_2\rangle$
-- One excited state: $|e\rangle$
+- Two ground states: $$|g_1\rangle$, $|g_2\rangle$$
+- One excited state: $$|e\rangle$$
 
 Quantum interference creates a dark state:
 $$
@@ -300,7 +300,7 @@ which suppresses carrier excitation and enables cooling.
 
 ### 1.2 Real Atomic Structure
 
-In $^{87}$Rb, this picture is only approximate. The atomic structure includes:
+In $$^{87}$$Rb, this picture is only approximate. The atomic structure includes:
 
 - Ground states:
   $$
@@ -379,9 +379,7 @@ $$
 $$
 
 At steady state:
-$$
-\dot{\rho} = 0
-$$
+$$\dot{\rho} = 0$$
 
 Numerically:
 ```python
@@ -389,9 +387,7 @@ rho_ss = steadystate(H, c_ops)
 ```
 
 The absorption spectrum is defined as:
-$$
-A(\Delta_p) = \text{Tr}(\rho_{ss} P_e)
-$$
+$$A(\Delta_p) = \text{Tr}(\rho_{ss} P_e)$$
 
 ---
 
@@ -436,9 +432,7 @@ Consequences:
 ## 4. Role of the Repumper
 
 Spontaneous emission transfers atoms to $F=1$:
-$$
-|e\rangle \rightarrow |F=1\rangle
-$$
+$$|e\rangle \rightarrow |F=1\rangle$$
 
 Without repumping:
 - Population accumulates in $F=1$  
@@ -462,9 +456,7 @@ The trap frequency $\nu$ defines:
 - Blue sideband: $\Delta = -\nu$  
 
 EIT cooling condition:
-$$
-\delta = \frac{\Omega_c^2}{4\Delta_c} \approx \nu
-$$
+$$\delta = \frac{\Omega_c^2}{4\Delta_c} \approx \nu$$
 
 ---
 
@@ -477,9 +469,7 @@ For larger $\nu$:
 This enhances excitation of unwanted states, especially $F'=3$, since the Clebsch–Gordan Scaling is
 
 Effective coupling:
-$$
-\Omega_{\text{eff}} = \Omega \cdot C_{g,e}
-$$
+$$\Omega_{\text{eff}} = \Omega \cdot C_{g,e}$$
 
 WRITE BETTER
 
@@ -530,9 +520,7 @@ python level_diagram.py
 
 ### 8.1 Absorption Spectrum
 
-$$
-A(\Delta_p) = \langle P_e \rangle
-$$
+$$A(\Delta_p) = \langle P_e \rangle$$
 
 Features:
 - EIT transparency window  
@@ -553,18 +541,16 @@ Tracks:
 ### 8.3 Leakage Ratio
 
 Defined as:
-$$
-\text{Leakage} = \frac{P_{F'=3}}{P_{\text{total}}}
-$$
+$$\text{Leakage} = \frac{P_{F'=3}}{P_{\text{total}}}$$
 
 Measures excitation lost to off-resonant states.
 
 
 <p align="center">
-  <img src="EIT_cooling_Rb/images/eit_diagram.png" width="400"/>
+  <img src="EIT_cooling_Rb/images/eit_diagram.png" width="900"/>
 </p>
 
 <p align="center">
-  <img src="EIT_cooling_Rb/images/plot_fano_profile.png" width="500"/>
+  <img src="EIT_cooling_Rb/images/plot_fano_profile.png" width="900"/>
 </p>
 
