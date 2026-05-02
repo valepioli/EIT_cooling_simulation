@@ -2,7 +2,7 @@ import numpy as np
 from qutip import clebsch
 
 # --- FILE NAMING ---
-RUN_NAME = "fano_profile_0" 
+RUN_NAME = "fano_profile" 
 
 # --- Physical Constants & Scaling ---
 gamma = 1.0  # Normalized decay rate
@@ -18,7 +18,7 @@ E_e0 = -229.16 * MHz
 nu = 0.016 * gamma
 
 # --- Magnetic Field Parameters ---
-B_field = 0.0             # Gauss
+B_field = 4.0             # Gauss
 mu_B = 1.399 * MHz        # Bohr magneton
 g_g1 = -0.5               
 g_g2 = 0.5                
