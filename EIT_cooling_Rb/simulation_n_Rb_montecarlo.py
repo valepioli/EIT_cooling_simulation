@@ -11,7 +11,7 @@ dp = cfg.Delta_p_center    # Probe detuning (centered on EIT resonance)
 
 # Monte Carlo time and trajectory settings
 t_total = 500000.0         # Total simulation time
-n_points = 2000            # Number of data points to save across the total time
+n_points = 5000            # Number of data points to save across the total time
 n_traj = 100               # Number of quantum trajectories to average over (increase for smoother curves)
 
 # --- PATH SETUP ---

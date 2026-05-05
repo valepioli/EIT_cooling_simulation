@@ -7,7 +7,7 @@ import config as cfg
 script_dir = os.path.dirname(os.path.abspath(__file__))
 results_dir = os.path.join(script_dir, "results_time")
 # Make sure this matches the exact name you used in the simulation script
-save_file = os.path.join(results_dir, f"time_evol_MC_{cfg.RUN_NAME}")
+save_file = os.path.join(results_dir, f"time_evol_500k_MC_{cfg.RUN_NAME}")
 
 def plot_monte_carlo_results():
     print(f"Loading data from {save_file}.qu ...")
@@ -51,7 +51,8 @@ def plot_monte_carlo_results():
     plt.tight_layout()
 
     # 4. Save the plot as a PNG image
-    plot_filename = os.path.join(results_dir, f"plot_MC_{cfg.RUN_NAME}.png")
+    save_dir = os.path.join(script_dir, "images/time_evolution")
+    plot_filename = os.path.join(save_dir, f"plot_MC_{cfg.RUN_NAME}.png")
     plt.savefig(plot_filename, dpi=300, bbox_inches='tight')
     print(f"[+] Plot successfully saved to: {plot_filename}")
 
