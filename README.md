@@ -146,7 +146,17 @@ In our case the following levels are used:
 <p align="center">
   <img src="EIT_cooling_Rb/images/eit_diagram.png" width="900"/>
 </p>
-WRITE WHY WE USE THESE
+
+In the 24-level $^{87}$Rb simulation, we specifically target the extreme "edge" magnetic sublevels (e.g., $m_F = -2$) rather than central states (e.g., $m_F = 0$). This is done to create a **closed optical cycle** by strictly limiting where the atom can decay.
+
+Because of quantum dipole selection rules ($\Delta m_F = 0, \pm 1$), an atom in the excited state $|F'=2, m_F=-2\rangle$ wants to decay to $m_F = -3, -2,$ or $-1$. Since the $m_F = -3$ state does not exist in the ground manifolds, the atom is funneled into exactly **three possible ground states**:
+
+1. $|F=2, m_F=-2\rangle$ *(Immediately re-absorbs the **Probe** laser)*
+2. $|F=2, m_F=-1\rangle$ *(Immediately re-absorbs the **Coupling** laser)*
+3. $|F=1, m_F=-1\rangle$ *(Rescued by the **Repumper** laser)*
+
+If we used a central state like $m_F = 0$, the excited atom could decay into **six** different ground states across the $F=1$ and $F=2$ manifolds. Atoms would constantly scatter into "dark" sublevels where the primary lasers cannot reach them, completely breaking the EIT cooling cycle.
+
 ---
 
 ### Total Hilbert Space
@@ -601,5 +611,6 @@ The outputs from the Rubidium-87 pipeline reveal the exact complexities you will
   <img src="EIT_cooling_Rb/images/time_evolution/plot_MC_fano_profile.png" alt="Monte Carlo Cooling Curve" width="450"/>
 </p>
 
+The output images currently have the suffix fano_profile because they correspond to the default RUN_NAME defined in config.py. If you adjust the physics parameters, you can simply change this variable (for example, to RUN_NAME = "fano_profile_diff_detuning"). The simulation will then automatically generate and save a distinct set of results under that new name, preventing your previous data from being overwritten.
 
 
