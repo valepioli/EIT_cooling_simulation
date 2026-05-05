@@ -60,36 +60,42 @@ This demonstrates that extremely low temperatures can be achieved by utilizing f
 
 
 ## Project Structure
+
 ```text
 EIT_Cooling_Project/
 │
 ├── requirements.txt
 │
-├── Fano/                         # Simple Fano spectrum ignoring harmonic oscillator
+├── Fano/                                          # Simple Fano spectrum ignoring harmonic oscillator
 │   ├── Fano_profile.py  
-│   ├── Fano_profile.png     
+│   └── Fano_profile.png     
 │
-├── EIT_cooling/                  # ── 3-LEVEL SYSTEM ──
-│   ├── config.py                 # Parameters 
-│   ├── simulation.py             # Lindblad ODE solver (mesolve)
-│   ├── plot.py                   # plots and 3-panel animation generator
-│   ├── results/                  # Saved .qu numerical arrays
-│   └── plots/                    # Output animations (.gif .png)
+├── EIT_cooling/                                   # ── 3-LEVEL SYSTEM ──
+│   ├── config.py                                  # Parameters 
+│   ├── simulation.py                              # Lindblad ODE solver (mesolve)
+│   ├── plot.py                                    # plots and 3-panel animation generator
+│   ├── results/                                   # Saved .qu numerical arrays
+│   └── plots/                                     # Output animations (.gif .png)
 │
-└── EIT_cooling_Rb/                            # ── 24-LEVEL 87Rb SYSTEM ──
-    ├── config.py                              # Hyperfine levels, Clebsch-Gordan, B-field parameters
-    ├── fano.py                                # Steady-state solver for the Fano/Absorption spectrum
-    ├── plot_fano.py                           # Plots the EIT spectrum
-    ├── level_diagram.py                       # Generates graphical level diagrams
-    ├── simulation_n_Rb.py          # mesolve time evolution solver 
-    ├── simulation_n_Rb_montecarlo.py          # Monte Carlo time evolution solver (mcsolve)
-    ├── plot_n.py                              # Plots the cooling curve <n> vs time from mesolve data
-    ├── plot_n_MC.py                           # Plots the cooling curve <n> vs time from MC data
-    ├── results_fano/                          # Saved Fano spectrum data
-    ├── results_time/                          # Saved mesolve and mcsolve trajectories and plots
-    └── images/                                # Output plots and diagrams
+└── EIT_cooling_Rb/                                # ── 24-LEVEL 87Rb SYSTEM ──
+    ├── config.py                                  # Hyperfine levels, Clebsch-Gordan, B-field parameters
+    ├── fano.py                                    # Steady-state solver for the Fano/Absorption spectrum
+    ├── plot_fano.py                               # Plots the EIT spectrum
+    ├── level_diagram.py                           # Generates graphical level diagrams
+    ├── simulation_n_Rb.py                         # mesolve time evolution solver 
+    ├── simulation_n_Rb_montecarlo.py              # Monte Carlo time evolution solver (mcsolve)
+    ├── plot_n.py                                  # Plots the cooling curve <n> vs time from mesolve data
+    ├── plot_n_MC.py                               # Plots the cooling curve <n> vs time from MC data
+    ├── results_time/                              # Saved mesolve and mcsolve trajectories and plots
+    ├── images/                                    # Output plots and diagrams
+    │
+    ├── results_fano/                              # Saved Fano spectrum data            
+    │
+    └── plot Fano experiments/                                  
+        └── repumper/                              # repumper optimization
+            ├── plot_comparison.py                 # Script to overlay & compare multiple repumper sweeps
+            └── plot_fano_comparison_all.png       # Output comparative chart
 ```
-
 
 ## 3-Level and 24-Level EIT Cooling: Full Model Description
 
@@ -613,4 +619,56 @@ The outputs from the Rubidium-87 pipeline reveal the exact complexities you will
 
 The output images currently have the suffix fano_profile because they correspond to the default RUN_NAME defined in config.py. If you adjust the physics parameters, you can simply change this variable (for example, to RUN_NAME = "fano_profile_diff_detuning"). The simulation will then automatically generate and save a distinct set of results under that new name, preventing your previous data from being overwritten.
 
+Here is a draft you can copy and paste directly into your `README.md` file. It explains the physics motivation, outlines the new folder structure, and provides clear terminal commands to run the script.
 
+***
+---
+## Repumper Optimization: Mitigating F=1 Population Trapping
+
+During our EIT cooling simulations, we observed an accumulation of unwanted atomic population leaking into the `F=1` ground state manifold. This dark state trapping removes atoms from the active `F=2` cooling cycle, creating "dead time" that severely limits the overall cooling rate. 
+
+To resolve this, we are systematically optimizing the repumper laser parameters. The goal is to find the ideal intensity that pumps atoms back into the `F=2` manifold as rapidly as possible, without introducing excessive power broadening that would compromise the narrow EIT Fano resonance.
+
+### Directory Structure & Data
+
+We have set up a new folder and script to easily compare the system's dynamics across different repumper powers:
+
+* **Simulation Data:** The results for each parameter sweep are stored in the root `results_fano/` directory. Each run is saved in its own subfolder following the naming convention `fano_profile_rep[VALUE]` (e.g., `fano_profile_rep0.2`, `fano_profile_rep0.5`).
+* **Plotting Environment:** The script to analyze these runs is located inside the `repumper/plot Fano experiments/` directory.
+
+### How to Run the Comparative Plot
+
+To visualize the overlaid Fano profiles, optical pumping efficiency, and $F'=3$ leakage for all repumper variations simultaneously, execute the plotting script from your terminal:
+
+```bash
+# 1. Navigate to the experiments directory
+cd "repumper/plot Fano experiments/"
+
+# 2. Execute the plotting script (replace with your actual python filename)
+python plot_comparison.py
+```
+
+The script will automatically traverse the directory tree, detect all `fano_profile_rep...` folders, extract their data, and generate a single, color-coded summary chart (`plot_fano_comparison_all.png`) saved directly in your current working directory.
+
+<p align="center">
+  <img src="EIT_cooling_Rb/plot Fano experiments/repumper/plot_fano_comparison_all.png" alt="Repumper Optimization and AC Stark Shift" width="800"/>
+</p>
+
+The analysis reveals a fundamental physical trade-off between dark-state depopulation and power-induced resonance shifts:
+
+
+* **Top Panel (Fano Profile and AC Stark Shift):** 
+  While increasing the repumper intensity mitigates $F=1$ population trapping, it simultaneously induces a pronounced AC Stark shift (light shift). The intense repumper field dresses the atomic states, which manifests macroscopically as a positive frequency shift (toward higher probe detuning, $\Delta_p$) of the entire Fano profile. This shift affects both the EIT transparency minimum (the dark resonance) and the highly asymmetric absorption maximum.
+
+* **Optimal Parameter Regime ($\Omega_{repump} = 0.7 \gamma$):**
+  The physical objective of resolved-sideband EIT cooling is to minimize the scattering rate at the carrier frequency (to suppress heating) while maximizing the scattering rate exactly at the red vibrational sideband. 
+  The trace corresponding to **0.7 $\gamma$ (dark blue)** demonstrates the optimal configuration for these specific parameters. At this intensity, the magnitude of the AC Stark shift precisely aligns the Fano absorption maximum with the atomic Red Sideband (dashed red line). For higher intensities (e.g., 1.5 $\gamma$ or 2.0 $\gamma$), the induced light shift is excessive, displacing the absorption peak beyond the red sideband and decoupling the atom from the cooling transition.
+
+* **Middle Panel (Ground State Population Trapping):** 
+  This panel quantifies the efficacy of optical pumping. At low repumper intensities (e.g., $\Omega_{repump} = 0.2 \gamma$, dark purple trace), off-resonant scattering leads to significant population trapping in the uncoupled $F=1$ ground state manifold (approximately 35%). This effectively isolates these atoms from the active $F=2 \leftrightarrow F'=2$ cooling cycle, severely limiting the overall cooling rate. Increasing the repumper Rabi frequency to 0.7 $\gamma$ and above sufficiently depletes this residual population, restoring the ensemble to the active cooling transition.
+
+* **Bottom Panel (Efficiency Loss / Off-Resonant Scattering):** 
+  This panel plots the fractional population excitation to the off-resonant $F'=3$ state. The deep minima correspond to the EIT window, where destructive quantum interference suppresses atomic excitation.
+
+**Conclusion:**
+Optimization of the multi-level EIT cooling scheme requires a strict balance. The repumper intensity must be high enough to continuously deplete the $F=1$ dark state, but strictly bounded to prevent the AC Stark shift from detuning the Fano absorption peak away from the red vibrational sideband. For the current parameter set, **$\Omega_{repump} = 0.7 \gamma$** represents the exact theoretical optimum, maximizing the cooling transition probability while preserving the destructive interference on the carrier transition.
