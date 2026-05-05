@@ -614,6 +614,9 @@ The outputs from the Rubidium-87 pipeline reveal the exact complexities you will
 
 <p align="center">
   <img src="EIT_cooling_Rb/images/fano_images/plot_fano_profile.png" alt="24-Level Fano Spectrum and Pumping Leaks" width="450"/>
+</p>
+
+<p align="center">
   <img src="EIT_cooling_Rb/images/time_evolution/plot_MC_fano_profile.png" alt="Monte Carlo Cooling Curve" width="450"/>
 </p>
 
@@ -621,7 +624,35 @@ The output images currently have the suffix fano_profile because they correspond
 
 Here is a draft you can copy and paste directly into your `README.md` file. It explains the physics motivation, outlines the new folder structure, and provides clear terminal commands to run the script.
 
-***
+---
+## Time Evolution Solvers: `mesolve` vs `mcsolve`
+
+In this project, we employ two distinct numerical approaches provided by the QuTiP library to simulate the time evolution of the open quantum system. Understanding the difference between these solvers is crucial for navigating the computational limits of large Hilbert spaces.
+
+### 1. The Master Equation Solver (`mesolve`)
+The `mesolve` function integrates the Lindblad Master Equation deterministically to find the exact time evolution of the system's full **density matrix** ($\rho$).
+
+* **How it works:** It calculates the precise statistical ensemble average of the system at every time step, accounting for both coherent evolution and incoherent dissipation (spontaneous emission).
+* **When to use it:** `mesolve` is ideal for small quantum systems, such as our simplified 3-level toy model. It provides exact, smooth curves without any statistical noise.
+* **The limitation ($O(N^2)$ scaling):** The density matrix scales quadratically with the number of states. For our full $^{87}\text{Rb}$ system with 24 internal states and a truncation of 15 vibrational phonons, the Hilbert space size is $N = 24 \times 15 = 360$. The density matrix therefore contains $360^2 = 129,600$ elements. Solving coupled differential equations for a matrix this size is extremely memory-intensive and computationally slow.
+
+### 2. The Monte Carlo Wavefunction Solver (`mcsolve`)
+To bypass the memory bottleneck of the density matrix, `mcsolve` uses the **Quantum Jump Approach** (Monte Carlo wavefunction method) to simulate the time evolution of individual **state vectors** ($|\psi\rangle$).
+
+* **How it works:** Instead of simulating the entire statistical ensemble at once, it simulates a single atom undergoing coherent evolution interrupted by random, stochastic "quantum jumps" (representing spontaneous emission events). By calculating many independent trajectories (`ntraj`) and averaging them together, the result converges to the Master Equation solution.
+* **When to use it:** `mcsolve` is strictly necessary for large, complex systems like our full 24-level Rubidium simulation. It is also the physically accurate way to observe the trajectory of a *single* atom, rather than an ensemble.
+* **The advantages ($O(N)$ scaling & Parallelization):** Because it evolves state vectors instead of density matrices, the memory requirement scales linearly. Furthermore, because each quantum trajectory is statistically independent, `mcsolve` automatically parallelizes the computation across all available CPU cores, vastly reducing simulation time for large Hilbert spaces.
+* **The limitation:** The output inherently contains statistical noise. Obtaining a perfectly smooth curve requires averaging a large number of trajectories, which can take time, though it avoids the hard memory limits of `mesolve`.
+
+**Summary for this Project:**
+* Run `simulation.py` (`mesolve`) for quick, exact results on the simple 3-level EIT model.
+* Run `simulation_n_Rb_montecarlo.py` (`mcsolve`) to handle the massive state space of the realistic $^{87}\text{Rb}$ EIT cooling dynamics without crashing your machine's RAM.
+
+The plot obtained above with mcsolve took 8 hours, mesolve obtained only 70.000 steps in 3 days of continuous running.
+<p align="center">
+  <img src="EIT_cooling_Rb/images/time_evolution/cooling_curve_fano_profile.gif" alt="Monte Carlo Cooling Curve" width="450"/>
+</p>
+
 ---
 ## Repumper Optimization: Mitigating F=1 Population Trapping
 
@@ -651,7 +682,7 @@ python plot_comparison.py
 The script will automatically traverse the directory tree, detect all `fano_profile_rep...` folders, extract their data, and generate a single, color-coded summary chart (`plot_fano_comparison_all.png`) saved directly in your current working directory.
 
 <p align="center">
-  <img src="EIT_cooling_Rb/plot Fano experiments/repumper/plot_fano_comparison_all.png" alt="Repumper Optimization and AC Stark Shift" width="800"/>
+  <img src="EIT_cooling_Rb/Plot_Fano_experiments/Repumper/plot_fano_comparison_all.png" alt="Repumper Optimization and AC Stark Shift" width="800"/>
 </p>
 
 The analysis reveals a fundamental physical trade-off between dark-state depopulation and power-induced resonance shifts:
