@@ -701,3 +701,26 @@ The analysis reveals a fundamental physical trade-off between dark-state depopul
 
 **Conclusion:**
 Optimization of the multi-level EIT cooling scheme requires a strict balance. The repumper intensity must be high enough to continuously deplete the $F=1$ dark state, but strictly bounded to prevent the AC Stark shift from detuning the Fano absorption peak away from the red vibrational sideband. For the current parameter set, **$\Omega_{repump} = 0.7 \gamma$** represents the exact theoretical optimum, maximizing the cooling transition probability while preserving the destructive interference on the carrier transition.
+
+## Probe Optimization
+Following the same pipeline of the rempumper optimization, we optimized the probe power:
+### Results & Analysis: Probe Rabi Frequency Optimization
+
+<p align="center">
+  <img src="EIT_cooling_Rb/plot_Fano_experiments/Probe/plot_fano_comparison_all.png" alt="Probe Optimization and Power Broadening" width="800"/>
+</p>
+
+The generated plot illustrates the dependence of the EIT cooling dynamics on the probe Rabi frequency ($\Omega_{p}$), evaluated across a range from $0.05 \gamma$ to $0.35 \gamma$. The analysis reveals a fundamental physical trade-off between excitation amplitude and spectral resolution, governed by power broadening:
+
+* **Top Panel (Fano Profile and Power Broadening):** 
+  * **Resolution of the Asymmetry:** EIT cooling relies not just on a narrow absorption peak, but on the steep *asymmetry* of the Fano profile. The atom must experience near-zero absorption at the carrier frequency ($\Delta_p = \text{EIT Resonance}$) and maximum absorption at the red sideband. At low probe intensities ($\Omega_p = 0.05 \gamma$ to $0.10 \gamma$), this steep gradient is preserved. As power increases, the "valley" of the dark resonance fills in and the peak broadens, destroying the contrast. This means the atom becomes increasingly likely to scatter carrier photons, which causes random recoil heating and raises the final steady-state temperature $\langle n \rangle$.
+* **Probe-Induced AC Stark Shift:** While the repumper laser induces a strong light shift, the top panel demonstrates that an intense probe laser also contributes to the AC Stark effect. Looking closely at the traces from $0.15 \gamma$ to $0.35 \gamma$, the apex of the absorption peak systematically drifts to the right (higher detuning). At high powers, the peak completely detaches from the target Red Sideband (dashed red line).
+
+* **Middle Panel (Ground State Population Dynamics):** 
+  This panel quantifies the parasitic optical pumping induced by the probe laser. A stronger probe laser increases the total photon scattering rate of the system. This elevated scattering overwhelms the repumper and coupling lasers, systematically driving more atomic population into the uncoupled $F=1$ ground state manifold (solid lines) and spurious $F=2$ Zeeman sublevels (dashed lines). Consequently, operating at high probe powers inherently degrades the steady-state preparation of the target initial cooling state.
+
+* **Bottom Panel (Efficiency Loss / Off-Resonant Scattering):** 
+  This panel plots the fractional population leakage to the off-resonant $F'=3$ state. While higher probe intensities decrease the *relative* fractional leakage (by strongly driving the target $F'=2$ transition and lowering the baseline ratio), the EIT transparency window becomes excessively broad. A broad transparency window fails to provide the sharp, steep dispersive features necessary for optimal Fano interference.
+
+**Conclusion:**
+Optimization of the probe laser requires minimizing the applied power to preserve the narrow spectral features of the EIT dark resonance. While higher powers yield a larger absolute excitation signal, the resulting power broadening completely washes out the vibrational sideband resolution, leading to excess carrier scattering and heating. Furthermore, an overly intense probe disrupts steady-state optical pumping. For the current parameter set, operating in the weak-probe regime (**$0.10 \gamma$**) is theoretically optimal, maintaining a sharp Fano peak cleanly aligned with the target red sideband.
