@@ -682,7 +682,7 @@ python plot_comparison.py
 The script will automatically traverse the directory tree, detect all `fano_profile_rep...` folders, extract their data, and generate a single, color-coded summary chart (`plot_fano_comparison_all.png`) saved directly in your current working directory.
 
 <p align="center">
-  <img src="EIT_cooling_Rb/Plot_Fano_experiments/Repumper/plot_fano_comparison_all.png" alt="Repumper Optimization and AC Stark Shift" width="800"/>
+  <img src="EIT_cooling_Rb/Plot_Fano_esperiments/Repumper/plot_fano_comparison_all.png" alt="Repumper Optimization and AC Stark Shift" width="800"/>
 </p>
 
 The analysis reveals a fundamental physical trade-off between dark-state depopulation and power-induced resonance shifts:
