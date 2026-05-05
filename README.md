@@ -622,9 +622,7 @@ The outputs from the Rubidium-87 pipeline reveal the exact complexities you will
 
 The output images currently have the suffix fano_profile because they correspond to the default RUN_NAME defined in config.py. If you adjust the physics parameters, you can simply change this variable (for example, to RUN_NAME = "fano_profile_diff_detuning"). The simulation will then automatically generate and save a distinct set of results under that new name, preventing your previous data from being overwritten.
 
-Here is a draft you can copy and paste directly into your `README.md` file. It explains the physics motivation, outlines the new folder structure, and provides clear terminal commands to run the script.
 
----
 ## Time Evolution Solvers: `mesolve` vs `mcsolve`
 
 In this project, we employ two distinct numerical approaches provided by the QuTiP library to simulate the time evolution of the open quantum system. Understanding the difference between these solvers is crucial for navigating the computational limits of large Hilbert spaces.
