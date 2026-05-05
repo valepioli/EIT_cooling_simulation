@@ -93,8 +93,12 @@ EIT_Cooling_Project/
     │
     └── plot Fano experiments/                                  
         └── repumper/                              # repumper optimization
-            ├── plot_comparison.py                 # Script to overlay & compare multiple repumper sweeps
+        │   ├──  plot_comparison.py                 # Script to overlay & compare multiple repumper sweeps
+        │   └── plot_fano_comparison_all.png       # Output comparative chart
+        └── probe/                              # repumper optimization
+            ├── plot_comparison.py                 # Script to overlay & compare multiple probe sweeps
             └── plot_fano_comparison_all.png       # Output comparative chart
+
 ```
 
 ## 3-Level and 24-Level EIT Cooling: Full Model Description
@@ -707,7 +711,7 @@ Following the same pipeline of the rempumper optimization, we optimized the prob
 ### Results & Analysis: Probe Rabi Frequency Optimization
 
 <p align="center">
-  <img src="EIT_cooling_Rb/plot_Fano_experiments/Probe/plot_fano_comparison_all.png" alt="Probe Optimization and Power Broadening" width="800"/>
+  <img src="EIT_cooling_Rb/Plot_Fano_esperiments/Probe/plot_fano_comparison_all.png" alt="Probe Optimization and Power Broadening" width="800"/>
 </p>
 
 The generated plot illustrates the dependence of the EIT cooling dynamics on the probe Rabi frequency ($\Omega_{p}$), evaluated across a range from $0.05 \gamma$ to $0.35 \gamma$. The analysis reveals a fundamental physical trade-off between excitation amplitude and spectral resolution, governed by power broadening:
