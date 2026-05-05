@@ -60,7 +60,7 @@ def run_fano():
 
     # D. Repumper Laser (Interaction term: F=1 -> F'=2)
     pol_repump = -1
-    Omega_repump = 0.5 * cfg.gamma
+    Omega_repump = cfg.Omega_repump
     for gi in g1_idxs:
         for ei in e_idxs:
             if cfg.atom_labels[ei][1] == 2: # Only target F'=2

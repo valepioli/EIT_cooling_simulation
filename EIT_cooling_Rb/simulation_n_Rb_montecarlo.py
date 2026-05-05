@@ -56,7 +56,7 @@ def build_system():
 
     # Repumper Laser
     pol_repump = -1
-    Omega_repump = 0.5 * cfg.gamma
+    Omega_repump = cfg.Omega_repump
     for gi in g1_idxs:
         for ei in e_idxs:
             if cfg.atom_labels[ei][1] == 2:

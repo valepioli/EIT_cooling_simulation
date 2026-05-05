@@ -2,7 +2,7 @@ import numpy as np
 from qutip import clebsch
 
 # --- FILE NAMING ---
-RUN_NAME = "fano_profile" 
+RUN_NAME = "fano_profile_rep0.7" 
 
 # --- Physical Constants & Scaling ---
 gamma = 1.0  # Normalized decay rate
@@ -32,6 +32,7 @@ Delta_p_center = Delta_c - zeeman_offset
 
 Omega_c_amp = np.sqrt(4 * np.abs(Delta_c) * nu)
 Omega_p_amp = 0.15 * gamma
+Omega_repump = 0.7 * gamma
 
 # --- State Mapping (24 levels) ---
 atom_labels = []
