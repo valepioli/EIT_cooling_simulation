@@ -29,7 +29,7 @@ When an atom is confined within a harmonic potential, its center-of-mass motion 
 
 Ground-state cooling of trapped particles is conventionally achieved via Resolved Sideband Cooling (RSC). This technique relies on the selective excitation of the red motional sideband to extract vibrational quanta. However, RSC strictly requires the system to operate within the resolved sideband regime, where the harmonic trap frequency $\nu$ significantly exceeds the natural linewidth $\gamma$ of the cooling transition ($\nu >> \gamma$). While this condition is readily satisfied for trapped ions, whose strong Coulomb confinement yields trap frequencies in the MHz range, it is violated for neutral atoms. Due to the comparatively weak confinement provided by optical dipole traps or optical lattices, the trap frequencies for neutral atoms are typically much lower than the natural atomic linewidth ($\nu << \gamma$). Consequently, the motional sidebands remain unresolved and obscured by the broad atomic resonance profile, rendering standard RSC ineffective.
 
-<img width="1082" height="1160" alt="WhatsApp Image 2026-05-14 at 16 15 06" src="https://github.com/user-attachments/assets/c5985365-e481-442c-80c7-368a0ac35572" />
+<img width="541" height="580" alt="WhatsApp Image 2026-05-14 at 16 15 06" src="https://github.com/user-attachments/assets/c5985365-e481-442c-80c7-368a0ac35572" />
 
 <img width="712" height="312" alt="Immagine 2026-05-14 161537" src="https://github.com/user-attachments/assets/b2fc6b80-805c-4380-bd6c-1f3875d84af4" />
 
