@@ -46,13 +46,20 @@ $$|\Psi_D\rangle = \frac{1}{\Omega}(\Omega_2|g_1\rangle - \Omega_1|g_2\rangle)$$
 This state is completely decoupled from the excited state $|e\rangle$, meaning the probability of carrier absorption vanishes.
 
 ### 2. Dressed States and the AC Stark Shift
-The interaction with the strong coupling laser creates new "dressed states" in the atom. These dressed states ($|\psi_+\rangle$ and $|\psi_-\rangle$) have eigenfrequencies that are shifted from the bare atomic resonance:
-$$\delta\omega_\pm = \frac{\Delta \mp \sqrt{\Delta^2 + \Omega^2}}{2}$$
-where $\Delta$ is the laser detuning and $\Omega = \sqrt{\Omega_1^2 + \Omega_2^2}$ is the effective Rabi frequency. 
+Here is the revised section, incorporating the pump-probe context, the absorption spectrum, and the exact condition for the dark state, all while maintaining a rigorous scientific tone:
 
-In the context of the absorption spectrum, this creates a broad resonance and a very narrow resonance. The narrow resonance is shifted from the coupling laser's detuning by the **AC Stark shift** ($\delta$):
+### 2. Dressed States and the Pump-Probe Absorption Spectrum
+
+In a pump-probe configuration, the strong coupling (pump) laser interacts with the atom to create new "dressed states" ($|\psi_+\rangle$ and $|\psi_-\rangle$). These states have eigenfrequencies that are shifted from the bare atomic resonance:
+$$\delta\omega_\pm = \frac{\Delta \mp \sqrt{\Delta^2 + \Omega^2}}{2}$$
+where $\Delta$ is the laser detuning and $\Omega = \sqrt{\Omega_1^2 + \Omega_2^2}$ is the effective Rabi frequency.
+
+When a weak probe (cooling) laser interacts with this dressed system, the resulting absorption spectrum is fundamentally altered by quantum interference. The defining feature of this spectrum is the emergence of a dark state—characterized by a complete vanishing of probe absorption, which occurs precisely at the two-photon resonance condition, where the probe detuning equals the coupling detuning ($\Delta_p = \Delta_c$).
+
+Adjacent to this zero-absorption point, the modified probe spectrum displays a broad resonance and an artificially narrow resonance. The narrow resonance is displaced by the **AC Stark shift** ($\delta$) induced by the strong coupling field:
 $$\delta = \frac{\sqrt{\Delta_r^2 + \Omega_r^2} - |\Delta_r|}{2}$$
-which creates the characteristic asymmetric Fano-like profile.
+which ultimately yields the characteristic asymmetric Fano-like absorption profile.
+<img width="721" height="485" alt="Immagine 2026-05-14 164907" src="https://github.com/user-attachments/assets/c54dce45-9738-4c72-b5eb-f1744dc377c0" />
 
 ### 3. Coupling to the Motion (Lamb-Dicke Regime)
 When the atom is trapped in a harmonic potential with frequency $\nu$, its motion is quantized into phonon states $|n\rangle$. In the Lamb-Dicke regime, the dynamics of the motional state populations $P(n)$ can be described by a rate equation:
