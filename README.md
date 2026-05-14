@@ -10,51 +10,51 @@ Work in progress (models under refinement — results may contain inaccuracies)
 This project implements numerical simulations of **Electromagnetically Induced Transparency (EIT) cooling** using QuTiP, at two different levels of complexity:
 
 - **3-level Λ system** (idealized model)
-- **24-level $^{87}$Rb system** (realistic hyperfine + Zeeman structure)
+- **24-level $^{87}$ Rb system** (realistic hyperfine + Zeeman structure)
 
 The goal is to study how quantum interference enables cooling of a trapped atom to its motional ground state, and how real atomic complexity affects performance.
-
+This odel is one-dimensional (currently working on the 3D implementation), the final goal is to study EIT inside an hollow core photonic crystal fiber.
 ---
 
 ## Theory
-For a rigorous mathematical derivation of the physics behind this simulation, you should refer to "Morigi-2018-Cooling the atomic motion with quantum interference.pdf" and "Morigi-2018-Ground state laser cooling using electromagnetically induced transparency.pdf".
+For a rigorous mathematical derivation of the physics behind this simulation, you should refer to the articles "Morigi-2018-Cooling the atomic motion with quantum interference" and "Morigi-2018-Ground state laser cooling using electromagnetically induced transparency".
 
 ---
 
 ### 1. The Internal Dynamics and the Dark State
-The core of the EIT cooling scheme relies on a $\Lambda$-shaped atomic level configuration driven by two lasers (a coupling/pump laser and a probe/cooling laser) tuned to a two-photon resonance[cite: 1]. 
+The core of the EIT cooling scheme relies on a $\Lambda$-shaped atomic level configuration driven by two lasers (a coupling/pump laser and a probe/cooling laser) tuned to a two-photon resonance. 
 
 Due to quantum interference between the two excitation pathways, the atom falls into a coherent superposition known as the **Dark State**:
 $$|\Psi_D\rangle = \frac{1}{\Omega}(\Omega_2|g_1\rangle - \Omega_1|g_2\rangle)$$
 
-where $\Omega = \sqrt{\Omega_1^2 + \Omega_2^2}$ is the effective Rabi frequency[cite: 1]. This state is completely decoupled from the excited state $|e\rangle$, meaning the probability of carrier absorption vanishes[cite: 1].
+This state is completely decoupled from the excited state $|e\rangle$, meaning the probability of carrier absorption vanishes.
 
 ### 2. Dressed States and the AC Stark Shift
-The interaction with the strong coupling laser creates new "dressed states" in the atom[cite: 1]. These dressed states ($|\psi_+\rangle$ and $|\psi_-\rangle$) have eigenfrequencies that are shifted from the bare atomic resonance:
+The interaction with the strong coupling laser creates new "dressed states" in the atom. These dressed states ($|\psi_+\rangle$ and $|\psi_-\rangle$) have eigenfrequencies that are shifted from the bare atomic resonance:
 $$\delta\omega_\pm = \frac{\Delta \mp \sqrt{\Delta^2 + \Omega^2}}{2}$$
-where $\Delta$ is the laser detuning[cite: 1]. 
+where $\Delta$ is the laser detuning and $\Omega = \sqrt{\Omega_1^2 + \Omega_2^2}$ is the effective Rabi frequency. 
 
-In the context of the absorption spectrum, this creates a broad resonance and a very narrow resonance[cite: 2]. The narrow resonance is shifted from the coupling laser's detuning ($\Delta_r$) by the **AC Stark shift** ($\delta$):
+In the context of the absorption spectrum, this creates a broad resonance and a very narrow resonance. The narrow resonance is shifted from the coupling laser's detuning by the **AC Stark shift** ($\delta$):
 $$\delta = \frac{\sqrt{\Delta_r^2 + \Omega_r^2} - |\Delta_r|}{2}$$
-which creates the characteristic asymmetric Fano-like profile[cite: 2].
+which creates the characteristic asymmetric Fano-like profile.
 
 ### 3. Coupling to the Motion (Lamb-Dicke Regime)
-When the atom is trapped in a harmonic potential with frequency $\nu$, its motion is quantized into phonon states $|n\rangle$[cite: 2]. In the Lamb-Dicke regime, the dynamics of the motional state populations $P(n)$ can be described by a rate equation:
+When the atom is trapped in a harmonic potential with frequency $\nu$, its motion is quantized into phonon states $|n\rangle$. In the Lamb-Dicke regime, the dynamics of the motional state populations $P(n)$ can be described by a rate equation:
 $$\frac{d}{dt}P(n) = \eta^2 \left[ A_- \big( (n+1)P(n+1) - nP(n) \big) + A_+ \big( nP(n-1) - (n+1)P(n) \big) \right]$$
-where $\eta$ is the Lamb-Dicke parameter[cite: 2]. 
+where $\eta$ is the Lamb-Dicke parameter. 
 
 The coefficients $A_+$ and $A_-$ represent the transition rates for heating (absorbing a phonon) and cooling (removing a phonon), respectively[cite: 2]. Because of the quantum interference, these rates are fundamentally altered:
 $$A_\pm = \frac{\Omega_g^2}{\gamma} \frac{\gamma^2\nu^2}{\gamma^2\nu^2 + 4[\Omega_r^2/4 - \nu(\nu \mp \Delta)]^2}$$
-where $\Omega_g$ is the cooling laser Rabi frequency, $\Omega_r$ is the coupling laser Rabi frequency, and $\gamma$ is the spontaneous emission rate[cite: 2].
+where $\Omega_g$ is the cooling laser Rabi frequency, $\Omega_r$ is the coupling laser Rabi frequency, $\gamma$ is the spontaneous emission rate, and where we set $\Omega_g = \Omega_r = \Omega$.
 
 ### 4. The Cooling Limit
-To achieve ground-state cooling, the system must maximize $A_-$ (cooling) while minimizing $A_+$ (heating)[cite: 2]. The steady-state mean vibrational quantum number $\langle n_S \rangle$ is found by solving the rate equation:
+To achieve ground-state cooling, the system must maximize $A_-$ (cooling) while minimizing $A_+$ (heating). The steady-state mean vibrational quantum number $\langle n_S \rangle$ is found by solving the rate equation:
 $$\langle n_S \rangle = \frac{A_+}{A_- - A_+} = \frac{\gamma^2\nu^2 + 4[\Omega_r^2/4 - \nu(\nu + \Delta)]^2}{4\Delta\nu(\Omega_r^2 - 4\nu^2)}$$
-To minimize $\langle n_S \rangle$, the laser parameters must be tuned such that the AC Stark shift exactly matches the harmonic trap frequency[cite: 2]:
+To minimize $\langle n_S \rangle$, the laser parameters must be tuned such that the AC Stark shift exactly matches the harmonic trap frequency:
 $$\delta \simeq \nu$$
-When this resonance condition is met, the narrow Fano absorption peak aligns perfectly with the red motional sideband, allowing the system to achieve an optimal steady-state phonon number of[cite: 1]:
+When this resonance condition is met, the narrow Fano absorption peak aligns perfectly with the red motional sideband, allowing the system to achieve an optimal steady-state phonon number of:
 $$\langle n \rangle_\infty^{(min)} = \left(\frac{\gamma}{4|\Delta|}\right)^2$$
-This demonstrates that extremely low temperatures can be achieved by utilizing far-detuned lasers to enhance the asymmetry of the excitation spectrum[cite: 1].
+This demonstrates that extremely low temperatures can be achieved by utilizing far-detuned lasers to enhance the asymmetry of the excitation spectrum.
 
 ---
 
