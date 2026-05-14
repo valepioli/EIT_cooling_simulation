@@ -29,9 +29,9 @@ When an atom is confined within a harmonic potential, its center-of-mass motion 
 
 Ground-state cooling of trapped particles is conventionally achieved via Resolved Sideband Cooling (RSC). This technique relies on the selective excitation of the red motional sideband to extract vibrational quanta. However, RSC strictly requires the system to operate within the resolved sideband regime, where the harmonic trap frequency $\nu$ significantly exceeds the natural linewidth $\gamma$ of the cooling transition ($\nu >> \gamma$). While this condition is readily satisfied for trapped ions, whose strong Coulomb confinement yields trap frequencies in the MHz range, it is violated for neutral atoms. Due to the comparatively weak confinement provided by optical dipole traps or optical lattices, the trap frequencies for neutral atoms are typically much lower than the natural atomic linewidth ($\nu << \gamma$). Consequently, the motional sidebands remain unresolved and obscured by the broad atomic resonance profile, rendering standard RSC ineffective.
 
-<img width="541" height="580" alt="WhatsApp Image 2026-05-14 at 16 15 06" src="https://github.com/user-attachments/assets/c5985365-e481-442c-80c7-368a0ac35572" />
+<img width="441" height="480" alt="WhatsApp Image 2026-05-14 at 16 15 06" src="https://github.com/user-attachments/assets/c5985365-e481-442c-80c7-368a0ac35572" />
 
-<img width="712" height="312" alt="Immagine 2026-05-14 161537" src="https://github.com/user-attachments/assets/b2fc6b80-805c-4380-bd6c-1f3875d84af4" />
+<img width="612" height="212" alt="Immagine 2026-05-14 161537" src="https://github.com/user-attachments/assets/b2fc6b80-805c-4380-bd6c-1f3875d84af4" />
 
 Electromagnetically Induced Transparency (EIT) cooling circumvents this limitation through optical engineering of the atomic absorption spectrum. By coupling a $\Lambda$-type three-level system with two distinct optical fields (a coupling and a probe laser), quantum interference between the excitation pathways is induced. This interference generates a Fano-like absorption profile characterized by a dark state and an artificially narrow resonance. By tuning the laser parameters, the carrier transition is aligned with the dark state, suppressing carrier excitation and the associated heating. Simultaneously, the AC Stark shift aligns the narrow resonance, whose effective linewidth is much smaller than $\gamma$, with the red motional sideband. This configuration establishes an effective resolved sideband regime, enabling ground-state cooling for weakly confined neutral atoms.
 
@@ -39,16 +39,14 @@ Electromagnetically Induced Transparency (EIT) cooling circumvents this limitati
 
 ### 1. The Internal Dynamics and the Dark State
 The core of the EIT cooling scheme relies on a $\Lambda$-shaped atomic level configuration driven by two lasers (a coupling/pump laser and a probe/cooling laser) tuned to a two-photon resonance. 
+<img width="267" height="306" alt="Immagine 2026-05-14 185517" src="https://github.com/user-attachments/assets/80b742db-7a32-439e-b923-24b58f47b2ad" />
 
 Due to quantum interference between the two excitation pathways, the atom falls into a coherent superposition known as the **Dark State**:
 $$|\Psi_D\rangle = \frac{1}{\Omega}(\Omega_2|g_1\rangle - \Omega_1|g_2\rangle)$$
 
 This state is completely decoupled from the excited state $|e\rangle$, meaning the probability of carrier absorption vanishes.
 
-### 2. Dressed States and the AC Stark Shift
-Here is the revised section, incorporating the pump-probe context, the absorption spectrum, and the exact condition for the dark state, all while maintaining a rigorous scientific tone:
-
-### 2. Dressed States and the Pump-Probe Absorption Spectrum
+### 2. Dressed States and theAbsorption Spectrum
 
 In a pump-probe configuration, the strong coupling (pump) laser interacts with the atom to create new "dressed states" ($|\psi_+\rangle$ and $|\psi_-\rangle$). These states have eigenfrequencies that are shifted from the bare atomic resonance:
 $$\delta\omega_\pm = \frac{\Delta \mp \sqrt{\Delta^2 + \Omega^2}}{2}$$
@@ -59,14 +57,14 @@ When a weak probe (cooling) laser interacts with this dressed system, the result
 Adjacent to this zero-absorption point, the modified probe spectrum displays a broad resonance and an artificially narrow resonance. The narrow resonance is displaced by the **AC Stark shift** ($\delta$) induced by the strong coupling field:
 $$\delta = \frac{\sqrt{\Delta_r^2 + \Omega_r^2} - |\Delta_r|}{2}$$
 which ultimately yields the characteristic asymmetric Fano-like absorption profile.
-<img width="721" height="485" alt="Immagine 2026-05-14 164907" src="https://github.com/user-attachments/assets/c54dce45-9738-4c72-b5eb-f1744dc377c0" />
+<img width="621" height="385" alt="Immagine 2026-05-14 164907" src="https://github.com/user-attachments/assets/c54dce45-9738-4c72-b5eb-f1744dc377c0" />
 
 ### 3. Coupling to the Motion (Lamb-Dicke Regime)
 When the atom is trapped in a harmonic potential with frequency $\nu$, its motion is quantized into phonon states $|n\rangle$. In the Lamb-Dicke regime, the dynamics of the motional state populations $P(n)$ can be described by a rate equation:
 $$\frac{d}{dt}P(n) = \eta^2 \left[ A_- \big( (n+1)P(n+1) - nP(n) \big) + A_+ \big( nP(n-1) - (n+1)P(n) \big) \right]$$
 where $\eta$ is the Lamb-Dicke parameter. 
 
-The coefficients $A_+$ and $A_-$ represent the transition rates for heating (absorbing a phonon) and cooling (removing a phonon), respectively[cite: 2]. Because of the quantum interference, these rates are fundamentally altered:
+The coefficients $A_+$ and $A_-$ represent the transition rates for heating (absorbing a phonon) and cooling (removing a phonon), respectively. Because of the quantum interference, these rates are fundamentally altered:
 $$A_\pm = \frac{\Omega_g^2}{\gamma} \frac{\gamma^2\nu^2}{\gamma^2\nu^2 + 4[\Omega_r^2/4 - \nu(\nu \mp \Delta)]^2}$$
 where $\Omega_g$ is the cooling laser Rabi frequency, $\Omega_r$ is the coupling laser Rabi frequency, $\gamma$ is the spontaneous emission rate, and where we set $\Omega_g = \Omega_r = \Omega$.
 
@@ -78,6 +76,12 @@ $$\delta \simeq \nu$$
 When this resonance condition is met, the narrow Fano absorption peak aligns perfectly with the red motional sideband, allowing the system to achieve an optimal steady-state phonon number of:
 $$\langle n \rangle_\infty^{(min)} = \left(\frac{\gamma}{4|\Delta|}\right)^2$$
 This demonstrates that extremely low temperatures can be achieved by utilizing far-detuned lasers to enhance the asymmetry of the excitation spectrum.
+<img width="407" height="305" alt="Immagine 2026-05-14 185600" src="https://github.com/user-attachments/assets/2d3c06b6-1a97-4f4c-aa54-fe539f84c3fd" />
+
+
+A final scheme that sums up the process is found in  "2023- Chow et al. Fano Resonance in Excitation Spectroscopy and Cooling of an Optically Trapped Single Atom"
+<img width="652" height="380" alt="Immagine 2026-05-14 185656" src="https://github.com/user-attachments/assets/d66b9522-16d5-4aec-8e47-988c8367a720" />
+
 
 ---
 
