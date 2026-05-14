@@ -23,7 +23,15 @@ For a rigorous mathematical derivation of the physics behind this simulation, yo
 ---
 ### Introduction: The Resolved Sideband Limit and the EIT Advantage
 
+When an atom is confined within a harmonic potential, its center-of-mass motion is quantized into discrete vibrational states separated by the trap frequency, $\nu$. This quantized motion phase-modulates the atom's interaction with an incident optical field, generating motional sidebands in the absorption spectrum. These sidebands appear at frequencies detuned from the primary atomic resonance (the carrier) by integer multiples of $\nu$. Specifically, driving the "red" sideband corresponds to the extraction of a vibrational quantum (cooling), while driving the "blue" sideband adds a quantum (heating).
+
+<img width="1177" height="425" alt="Immagine 2026-05-14 161140" src="https://github.com/user-attachments/assets/d4289f6c-ea8b-41d4-b9e6-16cb62b507e3" />
+
 Ground-state cooling of trapped particles is conventionally achieved via Resolved Sideband Cooling (RSC). This technique relies on the selective excitation of the red motional sideband to extract vibrational quanta. However, RSC strictly requires the system to operate within the resolved sideband regime, where the harmonic trap frequency $\nu$ significantly exceeds the natural linewidth $\gamma$ of the cooling transition ($\nu >> \gamma$). While this condition is readily satisfied for trapped ions, whose strong Coulomb confinement yields trap frequencies in the MHz range, it is violated for neutral atoms. Due to the comparatively weak confinement provided by optical dipole traps or optical lattices, the trap frequencies for neutral atoms are typically much lower than the natural atomic linewidth ($\nu << \gamma$). Consequently, the motional sidebands remain unresolved and obscured by the broad atomic resonance profile, rendering standard RSC ineffective.
+
+<img width="1082" height="1160" alt="WhatsApp Image 2026-05-14 at 16 15 06" src="https://github.com/user-attachments/assets/c5985365-e481-442c-80c7-368a0ac35572" />
+
+<img width="712" height="312" alt="Immagine 2026-05-14 161537" src="https://github.com/user-attachments/assets/b2fc6b80-805c-4380-bd6c-1f3875d84af4" />
 
 Electromagnetically Induced Transparency (EIT) cooling circumvents this limitation through optical engineering of the atomic absorption spectrum. By coupling a $\Lambda$-type three-level system with two distinct optical fields (a coupling and a probe laser), quantum interference between the excitation pathways is induced. This interference generates a Fano-like absorption profile characterized by a dark state and an artificially narrow resonance. By tuning the laser parameters, the carrier transition is aligned with the dark state, suppressing carrier excitation and the associated heating. Simultaneously, the AC Stark shift aligns the narrow resonance, whose effective linewidth is much smaller than $\gamma$, with the red motional sideband. This configuration establishes an effective resolved sideband regime, enabling ground-state cooling for weakly confined neutral atoms.
 
