@@ -14,10 +14,18 @@ This project implements numerical simulations of **Electromagnetically Induced T
 
 The goal is to study how quantum interference enables cooling of a trapped atom to its motional ground state, and how real atomic complexity affects performance.
 This odel is one-dimensional (currently working on the 3D implementation), the final goal is to study EIT inside an hollow core photonic crystal fiber.
+
 ---
 
 ## Theory
 For a rigorous mathematical derivation of the physics behind this simulation, you should refer to the articles "Morigi-2018-Cooling the atomic motion with quantum interference" and "Morigi-2018-Ground state laser cooling using electromagnetically induced transparency".
+
+---
+### Introduction: The Resolved Sideband Limit and the EIT Advantage
+
+Ground-state cooling of trapped particles is conventionally achieved via Resolved Sideband Cooling (RSC). This technique relies on the selective excitation of the red motional sideband to extract vibrational quanta. However, RSC strictly requires the system to operate within the resolved sideband regime, where the harmonic trap frequency $\nu$ significantly exceeds the natural linewidth $\gamma$ of the cooling transition ($\nu >> \gamma$). While this condition is readily satisfied for trapped ions, whose strong Coulomb confinement yields trap frequencies in the MHz range, it is violated for neutral atoms. Due to the comparatively weak confinement provided by optical dipole traps or optical lattices, the trap frequencies for neutral atoms are typically much lower than the natural atomic linewidth ($\nu << \gamma$). Consequently, the motional sidebands remain unresolved and obscured by the broad atomic resonance profile, rendering standard RSC ineffective.
+
+Electromagnetically Induced Transparency (EIT) cooling circumvents this limitation through optical engineering of the atomic absorption spectrum. By coupling a $\Lambda$-type three-level system with two distinct optical fields (a coupling and a probe laser), quantum interference between the excitation pathways is induced. This interference generates a Fano-like absorption profile characterized by a dark state and an artificially narrow resonance. By tuning the laser parameters, the carrier transition is aligned with the dark state, suppressing carrier excitation and the associated heating. Simultaneously, the AC Stark shift aligns the narrow resonance, whose effective linewidth is much smaller than $\gamma$, with the red motional sideband. This configuration establishes an effective resolved sideband regime, enabling ground-state cooling for weakly confined neutral atoms.
 
 ---
 
