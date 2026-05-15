@@ -13,7 +13,7 @@ This project implements numerical simulations of **Electromagnetically Induced T
 - **24-level $^{87}$ Rb system** (realistic hyperfine + Zeeman structure)
 
 The goal is to study how quantum interference enables cooling of a trapped atom to its motional ground state, and how real atomic complexity affects performance.
-This odel is one-dimensional (currently working on the 3D implementation), the final goal is to study EIT inside an hollow core photonic crystal fiber.
+This model is one-dimensional (currently working on the 3D implementation), the final goal is to study EIT inside an hollow core photonic crystal fiber.
 
 ---
 
@@ -52,7 +52,7 @@ In a pump-probe configuration, the strong coupling (pump) laser interacts with t
 $$\delta\omega_\pm = \frac{\Delta \mp \sqrt{\Delta^2 + \Omega^2}}{2}$$
 where $\Delta$ is the laser detuning and $\Omega = \sqrt{\Omega_1^2 + \Omega_2^2}$ is the effective Rabi frequency.
 
-When a weak probe (cooling) laser interacts with this dressed system, the resulting absorption spectrum is fundamentally altered by quantum interference. The defining feature of this spectrum is the emergence of a dark state—characterized by a complete vanishing of probe absorption, which occurs precisely at the two-photon resonance condition, where the probe detuning equals the coupling detuning ($\Delta_p = \Delta_c$).
+When a weak probe (cooling) laser interacts with this dressed system, the resulting absorption spectrum is fundamentally altered by quantum interference. The defining feature of this spectrum is the emergence of a dark state, characterized by a complete vanishing of probe absorption, which occurs precisely at the two-photon resonance condition, where the probe detuning equals the coupling detuning ($\Delta_p = \Delta_c$).
 
 Adjacent to this zero-absorption point, the modified probe spectrum displays a broad resonance and an artificially narrow resonance. The narrow resonance is displaced by the **AC Stark shift** ($\delta$) induced by the strong coupling field:
 $$\delta = \frac{\sqrt{\Delta_r^2 + \Omega_r^2} - |\Delta_r|}{2}$$
@@ -66,13 +66,13 @@ where $\eta$ is the Lamb-Dicke parameter.
 
 The coefficients $A_+$ and $A_-$ represent the transition rates for heating (absorbing a phonon) and cooling (removing a phonon), respectively. Because of the quantum interference, these rates are fundamentally altered:
 $$A_\pm = \frac{\Omega_g^2}{\gamma} \frac{\gamma^2\nu^2}{\gamma^2\nu^2 + 4[\Omega_r^2/4 - \nu(\nu \mp \Delta)]^2}$$
-where $\Omega_g$ is the cooling laser Rabi frequency, $\Omega_r$ is the coupling laser Rabi frequency, $\gamma$ is the spontaneous emission rate, and where we set $\Omega_g = \Omega_r = \Omega$.
+where $\Omega_g$ is the cooling laser Rabi frequency, $\Omega_r$ is the coupling laser Rabi frequency, $\gamma$ is the spontaneous emission rate.
 
 ### 4. The Cooling Limit
 To achieve ground-state cooling, the system must maximize $A_-$ (cooling) while minimizing $A_+$ (heating). The steady-state mean vibrational quantum number $\langle n_S \rangle$ is found by solving the rate equation:
 $$\langle n_S \rangle = \frac{A_+}{A_- - A_+} = \frac{\gamma^2\nu^2 + 4[\Omega_r^2/4 - \nu(\nu + \Delta)]^2}{4\Delta\nu(\Omega_r^2 - 4\nu^2)}$$
 To minimize $\langle n_S \rangle$, the laser parameters must be tuned such that the AC Stark shift exactly matches the harmonic trap frequency:
-$$\delta \simeq \nu$$
+$$\delta \simeq \nu$$ through the condition $$\delta = \left(\frac{\Omega_c^2}{4\Delta^2}\right)$$
 When this resonance condition is met, the narrow Fano absorption peak aligns perfectly with the red motional sideband, allowing the system to achieve an optimal steady-state phonon number of:
 $$\langle n \rangle_\infty^{(min)} = \left(\frac{\gamma}{4|\Delta|}\right)^2$$
 This demonstrates that extremely low temperatures can be achieved by utilizing far-detuned lasers to enhance the asymmetry of the excitation spectrum.
@@ -184,7 +184,7 @@ In our case the following levels are used:
   <img src="EIT_cooling_Rb/images/eit_diagram.png" width="900"/>
 </p>
 
-In the 24-level $^{87}$Rb simulation, we specifically target the extreme "edge" magnetic sublevels (e.g., $m_F = -2$) rather than central states (e.g., $m_F = 0$). This is done to create a **closed optical cycle** by strictly limiting where the atom can decay.
+In the 24-level $^{87}$ Rb simulation, we specifically target the extreme "edge" magnetic sublevels (e.g., $m_F = -2$) rather than central states (e.g., $m_F = 0$). This is done to create a **closed optical cycle** by strictly limiting where the atom can decay.
 
 Because of quantum dipole selection rules ($\Delta m_F = 0, \pm 1$), an atom in the excited state $|F'=2, m_F=-2\rangle$ wants to decay to $m_F = -3, -2,$ or $-1$. Since the $m_F = -3$ state does not exist in the ground manifolds, the atom is funneled into exactly **three possible ground states**:
 
@@ -272,10 +272,9 @@ $$
 H = \Delta_p |g_1\rangle\langle g_1| + \Delta_c |g_2\rangle\langle g_2| + \nu a^\dagger a
 $$
 
-$$
-+ \frac{\Omega_c}{2}(\sigma_{e g_2} + \sigma_{g_2 e})
-+ \frac{\Omega_p}{2}\left[\sigma_{e g_1}(1 + i\eta(a+a^\dagger)) + \text{h.c.}\right],
-$$
+
+$$+ \frac{\Omega_c}{2}(\sigma_{e g_2} + \sigma_{g_2 e})$$
+$$+ \frac{\Omega_p}{2}\left[\sigma_{e g_1}(1 + i\eta(a+a^\dagger)) + \text{h.c.}\right] $$
 
 with
 
@@ -393,24 +392,16 @@ $$
 To resolve the complex dynamics and verify the efficiency of the optical pumping and repumping, projectors onto specific subspaces are tracked:
 
 Total excited-state population:
-$$
-P_e = \sum_e |e\rangle\langle e|.
-$$
+$$ P_e = \sum_e |e\rangle\langle e|.$$
 
 Population in the target active manifold (e.g. $F'=2$):
-$$
-P_{e2} = \sum_{e \in F'=2} |e\rangle\langle e|.
-$$
+$$ P_{e2} = \sum_{e \in F'=2} |e\rangle\langle e|.$$
 
 Leakage to unwanted excited states (e.g. $F'=3$):
-$$
-P_{e3} = \sum_{e \in F'=3} |e\rangle\langle e|.
-$$
+$$ P_{e3} = \sum_{e \in F'=3} |e\rangle\langle e|.$$
 
 Population lost to uncoupled dark ground states (the target of the repumper):
-$$
-P_{\text{leak}} = \sum_{g \neq g_{\text{target}}} |g\rangle\langle g|.
-$$
+$$ P_{\text{leak}} = \sum_{g \neq g_{\text{target}}} |g\rangle\langle g|. $$
 
 ---
 
@@ -466,18 +457,14 @@ $$
 
 ---
 
-### 2. The 24-Level $^{87}$Rb System 
+### 2. The 24-Level $^{87}$ Rb System 
 In the realistic Rubidium-87 model, parameters are scaled to actual laboratory values. The $D_2$ line transition ($\lambda = 780$ nm) has a natural linewidth of $\gamma = 2\pi \times 6.067$ MHz. 
 
 Because we introduce a quantizing magnetic field ($B$), the Zeeman sublevels shift according to:
-$$
-\Delta E_Z = g_F \mu_B B m_F
-$$
+$$ \Delta E_Z = g_F \mu_B B m_F $$
 
 To successfully drive the cooling transition, the center frequency of the probe laser ($\Delta_p$) must be offset to compensate for the relative Zeeman shift between the target ground states:
-$$
-\Delta_p = \Delta_c - (g_{g2}m_{g2} - g_{g1}m_{g1})\mu_B B
-$$
+$$ \Delta_p = \Delta_c - (g_{g2}m_{g2} - g_{g1}m_{g1})\mu_B B $$
 Additionally, an off-resonant **Repumper Laser** ($\Omega_{\text{repump}}$) is introduced to prevent atoms from accumulating in the $F=1$ dark states during the cooling cycle.
 
 #### Parameters Used
@@ -542,6 +529,15 @@ pip install -r requirements.txt
 ### 2. The 3-Level System
 This pipeline simulates the perfect Lambda-system to generate clear, intuitive animations of EIT cooling. 
 
+### Quick Fano Sandbox
+To test the math of a Fano resonance without any EIT or harmonic oscillator dynamics, run the standalone script:
+
+```bash
+cd ../Fano
+python Fano_profile.py
+```
+
+
 **Step 2.1: Execute the numerical solver**
 This script uses QuTiP's `mesolve` to calculate the exact time evolution. It saves the matrix data into a new `results/` folder.
 ```bash
@@ -605,14 +601,6 @@ python plot_n.py
 
 ---
 
-### 4. Optional: Quick Fano Sandbox
-To test the math of a Fano resonance without any EIT or harmonic oscillator dynamics, run the standalone script:
-
-```bash
-cd ../Fano
-python Fano_profile.py
-```
-
 ##  Simulation Results
 
 ### 1. The 3-Level System 
@@ -633,12 +621,12 @@ The animation generated by the simplified pipeline (`EIT_cooling/plot.py`) provi
 
 ---
 
-### 2. The 24-Level $^{87}$Rb System 
+### 2. The 24-Level $^{87}$ Rb System 
 
 The outputs from the Rubidium-87 pipeline reveal the exact complexities you will encounter in a real-world laboratory environment, including off-resonant scattering and optical pumping inefficiencies:
 
 *   **Realistic Fano Spectrum & Efficiency Leaks:** 
-    Generated by `plot_fano.py`, this multi-axis plot isolates the exact $F'=2$ cooling signal from the massive background noise generated by the nearby $F'=3$ state. It critically maps out "optical pumping leaks"—showing how many atoms accidentally fall into spurious $F=2$ sublevels or the $F=1$ manifold if the Repumper laser is poorly tuned.
+    Generated by `plot_fano.py`, thisplot isolates the exact $F'=2$ cooling signal from the  background noise generated by the nearby $F'=3$ state. It maps out "optical pumping leaks", showing how many atoms accidentally fall into spurious $F=2$ sublevels or the $F=1$ manifold if the Repumper laser is poorly tuned.
     
 *   **Monte Carlo Cooling Dynamics:** 
     Generated by `plot_n_MC.py`, this curve shows the true time-evolution of the atomic temperature (mean phonon number $\langle n \rangle$). Unlike the perfect 3-level model, this curve demonstrates the slower, highly realistic cooling rate dictated by Clebsch-Gordan probability weightings, Zeeman shifts, and random spontaneous emission trajectories.
@@ -687,7 +675,7 @@ The plot obtained above with mcsolve took 8 hours, mesolve obtained only 70.000 
 
 During our EIT cooling simulations, we observed an accumulation of unwanted atomic population leaking into the `F=1` ground state manifold. This dark state trapping removes atoms from the active `F=2` cooling cycle, creating "dead time" that severely limits the overall cooling rate. 
 
-To resolve this, we are systematically optimizing the repumper laser parameters. The goal is to find the ideal intensity that pumps atoms back into the `F=2` manifold as rapidly as possible, without introducing excessive power broadening that would compromise the narrow EIT Fano resonance.
+To resolve this, we systematically optimize the repumper laser parameters. The goal is to find the ideal intensity that pumps atoms back into the `F=2` manifold as rapidly as possible, without introducing excessive power broadening that would compromise the narrow EIT Fano resonance.
 
 ### Directory Structure & Data
 
@@ -718,7 +706,7 @@ The analysis reveals a fundamental physical trade-off between dark-state depopul
 
 
 * **Top Panel (Fano Profile and AC Stark Shift):** 
-  While increasing the repumper intensity mitigates $F=1$ population trapping, it simultaneously induces a pronounced AC Stark shift (light shift). The intense repumper field dresses the atomic states, which manifests macroscopically as a positive frequency shift (toward higher probe detuning, $\Delta_p$) of the entire Fano profile. This shift affects both the EIT transparency minimum (the dark resonance) and the highly asymmetric absorption maximum.
+  While increasing the repumper intensity mitigates $F=1$ population trapping, it simultaneously induces a AC Stark shift (light shift). The intense repumper field dresses the atomic states, which manifests macroscopically as a positive frequency shift (toward higher probe detuning, $\Delta_p$) of the entire Fano profile. This shift affects both the EIT transparency minimum (the dark resonance) and the highly asymmetric absorption maximum.
 
 * **Optimal Parameter Regime ($\Omega_{repump} = 0.7 \gamma$):**
   The physical objective of resolved-sideband EIT cooling is to minimize the scattering rate at the carrier frequency (to suppress heating) while maximizing the scattering rate exactly at the red vibrational sideband. 
