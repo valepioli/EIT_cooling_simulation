@@ -744,8 +744,6 @@ The generated plot illustrates the dependence of the EIT cooling dynamics on the
 **Conclusion:**
 Optimization of the probe laser requires minimizing the applied power to preserve the narrow spectral features of the EIT dark resonance. While higher powers yield a larger absolute excitation signal, the resulting power broadening completely washes out the vibrational sideband resolution, leading to excess carrier scattering and heating. Furthermore, an overly intense probe disrupts steady-state optical pumping. For the current parameter set, operating in the weak-probe regime (**$0.10 \gamma$**) is theoretically optimal, maintaining a sharp Fano peak cleanly aligned with the target red sideband.
 
-Ecco il testo completo e revisionato. Ho corretto la formattazione per renderlo più leggibile e ho tradotto la tua ultima richiesta in inglese, aggiungendola alla fine come nuova sezione per mantenere la coerenza linguistica con il resto del documento.
-
 ---
 
 ##  Detuning Optimization
