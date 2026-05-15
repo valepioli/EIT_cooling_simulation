@@ -120,12 +120,12 @@ EIT_Cooling_Project/
     │
     └── plot Fano experiments/                                  
         └── repumper/                              # repumper optimization
-        │   ├──  plot_comparison.py                 # Script to overlay & compare multiple repumper sweeps
+        │   ├──  plot_comparison.py                # Script to overlay & compare multiple repumper sweeps
         │   └── plot_fano_comparison_all.png       # Output comparative chart
-        └── probe/                              # repumper optimization
-            ├── plot_comparison.py                 # Script to overlay & compare multiple probe sweeps
-            └── plot_fano_comparison_all.png       # Output comparative chart
-
+        └── delta/                                 # Detuning optimization
+        │   ├──  ...
+        └── probe/                                 # probe optimization
+            └──  ...    
 ```
 
 ## 3-Level and 24-Level EIT Cooling: Full Model Description
@@ -392,16 +392,16 @@ $$
 To resolve the complex dynamics and verify the efficiency of the optical pumping and repumping, projectors onto specific subspaces are tracked:
 
 Total excited-state population:
-$$ P_e = \sum_e |e\rangle\langle e|.$$
+$$P_e = \sum_e |e\rangle\langle e|.$$
 
 Population in the target active manifold (e.g. $F'=2$):
-$$ P_{e2} = \sum_{e \in F'=2} |e\rangle\langle e|.$$
+$$P_{e2} = \sum_{e \in F'=2} |e\rangle\langle e|.$$
 
 Leakage to unwanted excited states (e.g. $F'=3$):
-$$ P_{e3} = \sum_{e \in F'=3} |e\rangle\langle e|.$$
+$$P_{e3} = \sum_{e \in F'=3} |e\rangle\langle e|.$$
 
 Population lost to uncoupled dark ground states (the target of the repumper):
-$$ P_{\text{leak}} = \sum_{g \neq g_{\text{target}}} |g\rangle\langle g|. $$
+$$P_{\text{leak}} = \sum_{g \neq g_{\text{target}}} |g\rangle\langle g|.$$
 
 ---
 
@@ -461,10 +461,10 @@ $$
 In the realistic Rubidium-87 model, parameters are scaled to actual laboratory values. The $D_2$ line transition ($\lambda = 780$ nm) has a natural linewidth of $\gamma = 2\pi \times 6.067$ MHz. 
 
 Because we introduce a quantizing magnetic field ($B$), the Zeeman sublevels shift according to:
-$$ \Delta E_Z = g_F \mu_B B m_F $$
+$$\Delta E_Z = g_F \mu_B B m_F $$
 
 To successfully drive the cooling transition, the center frequency of the probe laser ($\Delta_p$) must be offset to compensate for the relative Zeeman shift between the target ground states:
-$$ \Delta_p = \Delta_c - (g_{g2}m_{g2} - g_{g1}m_{g1})\mu_B B $$
+$$\Delta_p = \Delta_c - (g_{g2}m_{g2} - g_{g1}m_{g1})\mu_B B$$
 Additionally, an off-resonant **Repumper Laser** ($\Omega_{\text{repump}}$) is introduced to prevent atoms from accumulating in the $F=1$ dark states during the cooling cycle.
 
 #### Parameters Used
@@ -743,3 +743,50 @@ The generated plot illustrates the dependence of the EIT cooling dynamics on the
 
 **Conclusion:**
 Optimization of the probe laser requires minimizing the applied power to preserve the narrow spectral features of the EIT dark resonance. While higher powers yield a larger absolute excitation signal, the resulting power broadening completely washes out the vibrational sideband resolution, leading to excess carrier scattering and heating. Furthermore, an overly intense probe disrupts steady-state optical pumping. For the current parameter set, operating in the weak-probe regime (**$0.10 \gamma$**) is theoretically optimal, maintaining a sharp Fano peak cleanly aligned with the target red sideband.
+
+Ecco il testo completo e revisionato. Ho corretto la formattazione per renderlo più leggibile e ho tradotto la tua ultima richiesta in inglese, aggiungendola alla fine come nuova sezione per mantenere la coerenza linguistica con il resto del documento.
+
+---
+
+##  Detuning Optimization
+
+Following the same pipeline of the previous optimizations, we optimized the coupling laser detuning ($\Delta_c$):
+
+The generated images illustrate the dependence of the EIT cooling dynamics on the coupling detuning ($\Delta_c$), evaluated across a range from $+6.0 \gamma$ to $+13.0 \gamma$. The analysis reveals how the interplay between the two-photon resonance condition and AC Stark shifts dictates the precise spectral alignment of the Fano profile:
+
+
+<p align="center">
+  <img src="EIT_cooling_Rb/Plot_Fano_esperiments/Delta/plot_1_fano_grid.png" alt="Delta Optimization" width="800"/>
+</p>
+
+* **Image 1 (Fano Profile and Spectral Alignment):**
+* *Targeting the Sideband:* Efficient EIT cooling requires precise overlap between the maximum of the absorption profile (the Fano peak) and the target motional sideband of the trap. Because the intense coupling laser induces a significant AC Stark shift, the position of the dark resonance drifts systematically as a function of $\Delta_c$. At lower detunings ($+6.0 \gamma$ to $+8.0 \gamma$), the peak falls short of the target Red Sideband (dashed red line). Conversely, at higher detunings ($+10.0 \gamma$ to $+13.0 \gamma$), the peak overshoots and detaches to the right.
+* *Peak Amplitude Reduction:* It is important to note that the absolute amplitude of the Fano absorption peak visibly decreases as $\Delta_c$ increases (dropping from a maximum of $\sim 0.0008$ at $+6.0 \gamma$ to $\sim 0.0004$ at $+13.0 \gamma$). This reduction in maximum excitation probability inherently lowers the achievable cooling rate. At exactly $\Delta_c = +9.0 \gamma$, the system finds the optimal compromise: the peak perfectly aligns with the target red sideband while maintaining a sufficiently high excitation amplitude.
+
+<p align="center">
+  <img src="EIT_cooling_Rb/Plot_Fano_esperiments/Delta/plot_2_ground_grid.png" alt="Delta Optimization" width="800"/>
+</p>
+
+* **Image 2 (Ground State Pumping Efficiency):**
+This image tracks the parasitic optical pumping into the uncoupled $F=1$ manifold (solid lines) and spurious $F=2$ Zeeman sublevels (dashed lines). Similar to the absorption profile, the peak of these unwanted populations shifts in frequency space and slightly decreases in amplitude at higher $\Delta_c$ values, confirming that optimal spectral alignment remains the dominant factor for successful cooling.
+
+<p align="center">
+  <img src="EIT_cooling_Rb/Plot_Fano_esperiments/Delta/plot_3_leakage_grid.png" alt="Delta Optimization" width="800"/>
+</p>
+
+* **Image 3 (Efficiency Loss / Off-Resonant $F'=3$ Leakage):**
+This image plots the fractional population leakage to the off-resonant $F'=3$ state. The distinct "dip" represents the EIT transparency window. At $\Delta_c = +9.0 \gamma$, this interference minimum is properly positioned to ensure a sharp, deep suppression of carrier scattering, preventing unwanted recoil heating.
+
+**Conclusion**
+
+We chose $\Delta_c = +9.0 \gamma$ as the optimal operational parameter, as it guarantees near-perfect alignment of the Fano absorption maximum with the target red sideband while maintaining strong suppression of carrier heating.
+
+---
+
+# Final Cooling Evolution
+
+By applying the complete set of previously optimized parameters (repumper, probe, and coupling detuning), we studied the overall time evolution of the EIT cooling dynamics. The results demonstrate a highly efficient process, with the system successfully cooling in fewer than $100,000$ steps.
+
+<p align="center">
+  <img src="EIT_cooling_Rb/images/time_evolution/plot_MC_fano_profile_optimized.png" alt=" Optimization" width="800"/>
+</p>
