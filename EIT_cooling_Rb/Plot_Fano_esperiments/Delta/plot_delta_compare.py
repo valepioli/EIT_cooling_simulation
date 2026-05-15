@@ -12,6 +12,11 @@ base_dir = os.path.abspath(os.path.join(script_dir, "..", ".."))
 sys.path.append(base_dir)
 import config as cfg
 
+def extract_delta(folder_name):
+    """Helper function to extract the numeric delta value for proper sorting."""
+    match = re.search(r'delta([-+]?[0-9.]+)', folder_name)
+    return float(match.group(1)) if match else 0.0
+
 def plot_grid_results():
     results_fano_dir = os.path.join(base_dir, "results_fano")
 
@@ -22,8 +27,8 @@ def plot_grid_results():
         print(f"Error: The target directory {results_fano_dir} does not exist.")
         return
 
-    # Sort the folders
-    run_folders.sort()
+    # Sort the folders NUMERICALLY based on the extracted Delta_c
+    run_folders.sort(key=extract_delta)
     num_runs = len(run_folders)
     
     if num_runs == 0:
@@ -54,8 +59,11 @@ def plot_grid_results():
         results_dir = os.path.join(results_fano_dir, run_name)
         color = colors[idx]
         
-        match = re.search(r'delta([-+]?[0-9.]+)', run_name)
-        delta_label = f"$\Delta_c$ = {match.group(1)} $\gamma$" if match else run_name
+        # Extract the specific delta value from the folder name
+        local_delta_c = extract_delta(run_name)
+        
+        # Format the label nicely (e.g., adding explicit + for positive values)
+        delta_label = f"$\Delta_c$ = {local_delta_c:+.1f} $\gamma$"
 
         # --- LOAD DATA ---
         try:
@@ -83,10 +91,14 @@ def plot_grid_results():
         ax1.plot(det_list, absorption_total, color="gray", ls=":", lw=1.5, alpha=0.3)
         ax1_twin.plot(det_list, absorption_e2_only, color=color, ls="-", lw=2)
         
-        # Add Reference Lines (Red/Blue Sidebands) to EVERY panel
-        ax1.axvline(cfg.Delta_p_center, color="purple", ls="-", alpha=0.2)
-        ax1.axvline(cfg.Delta_p_center + cfg.nu, color="red", lw=1.5, ls="--", alpha=0.4)
-        ax1.axvline(cfg.Delta_p_center - cfg.nu, color="blue", lw=1.5, ls="--", alpha=0.4)
+        # RECALCULATE PROBE CENTER based on local Delta_c and config zeeman offset
+        # The X-axis is Probe Detuning, so we must shift it exactly as done in config.py
+        local_delta_p_center = local_delta_c - cfg.zeeman_offset
+        
+        # Add Reference Lines using the correct local_delta_p_center and cfg.nu
+        ax1.axvline(local_delta_p_center, color="purple", ls="-", alpha=0.2)
+        ax1.axvline(local_delta_p_center + cfg.nu, color="red", lw=1.5, ls="--", alpha=0.4)
+        ax1.axvline(local_delta_p_center - cfg.nu, color="blue", lw=1.5, ls="--", alpha=0.4)
         
         # Smart Y-Axis limits based on the local peak inside the zoom window
         mask = (det_list >= x_min) & (det_list <= x_max)
