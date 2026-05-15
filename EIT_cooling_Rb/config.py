@@ -2,7 +2,7 @@ import numpy as np
 from qutip import clebsch
 
 # --- FILE NAMING ---
-RUN_NAME = "fano_profile_probe0.35" 
+RUN_NAME = "fano_profile_optimized" 
 
 # --- Physical Constants & Scaling ---
 gamma = 1.0  # Normalized decay rate
@@ -26,12 +26,12 @@ m_g1 = -1
 m_g2 = -2                 
 
 # Laser Parameters
-Delta_c = +12.0 * gamma 
+Delta_c = +9.0 * gamma 
 zeeman_offset = (g_g2 * m_g2 - g_g1 * m_g1) * mu_B * B_field
 Delta_p_center = Delta_c - zeeman_offset 
 
 Omega_c_amp = np.sqrt(4 * np.abs(Delta_c) * nu)
-Omega_p_amp = 0.35 * gamma
+Omega_p_amp = 0.1 * gamma
 Omega_repump = 0.7 * gamma
 
 # --- State Mapping (24 levels) ---
