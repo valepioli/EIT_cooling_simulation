@@ -293,7 +293,6 @@ $$
 H = \Delta_p |g_1\rangle\langle g_1| + \Delta_c |g_2\rangle\langle g_2| + \nu a^\dagger a
 $$
 
-
 $$+ \frac{\Omega_c}{2}(\sigma_{e g_2} + \sigma_{g_2 e})$$
 $$+ \frac{\Omega_p}{2}\left[\sigma_{e g_1}(1 + i\eta(a+a^\dagger)) + \text{h.c.}\right] $$
 
@@ -302,6 +301,8 @@ with
 $$
 \sigma_{e g_i} = |e\rangle\langle g_i|.
 $$
+
+> **Note on Beam Geometry:** In this specific 1D representation of the 3-level system, we assume a beam configuration where the strong coupling laser propagates orthogonally to the trap axis (thus its effective Lamb-Dicke parameter is zero, $\eta_c = 0$), while the probe laser propagates along the motional axis. In the generalized 24-level Hamiltonian, motional coupling can be applied to any beam depending on the chosen laboratory geometry.
 
 ---
 
