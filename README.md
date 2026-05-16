@@ -317,7 +317,7 @@ $$
 with dissipator
 
 $$
-\mathcal{L}(\rho) = \sum_k \left( C_k \rho C_k^\dagger - \frac{1}{2}\{C_k^\dagger C_k, \rho\} \right).
+\mathcal{L}(\rho) = \sum_k \left( L_k \rho L_k^\dagger - \frac{1}{2}\{L_k^\dagger L_k, \rho\} \right).
 $$
 
 ---
@@ -326,21 +326,22 @@ $$
 
 #### 3-Level Model
 
-Spontaneous emission from the excited state symmetrically into both ground states:
+Spontaneous emission from the excited state symmetrically into both ground states. We define the Lindblad jump operators $L$:
 
 $$
-C_1 = \sqrt{\frac{\gamma}{2}}\, |g_1\rangle\langle e|, \qquad
-C_2 = \sqrt{\frac{\gamma}{2}}\, |g_2\rangle\langle e|.
+L_1 = \sqrt{\frac{\gamma}{2}}\, |g_1\rangle\langle e|, \qquad
+L_2 = \sqrt{\frac{\gamma}{2}}\, |g_2\rangle\langle e|.
 $$
 
 ---
 
 #### 24-Level Model
 
-All allowed decay channels are included explicitly, strictly obeying dipole selection rules. This realistic decay mechanism is what necessitates the repumper, as atoms spontaneously fall out of the active EIT subspace:
+
+All allowed decay channels are included explicitly, strictly obeying dipole selection rules. This realistic decay mechanism is what necessitates the repumper, as atoms spontaneously fall out of the active EIT subspace. To avoid notational conflict with the Clebsch-Gordan coefficients ($C_{g,e}^{(q)}$), we denote the Lindblad jump operators as $L$:
 
 $$
-C_{e \to g}^{(q)} = \sqrt{\gamma}\, C_{g,e}^{(q)} \, |g\rangle\langle e|,
+L_{e \to g}^{(q)} = \sqrt{\gamma}\, C_{g,e}^{(q)} \, |g\rangle\langle e|,
 $$
 
 for all $g,e$ manifolds and polarizations $q \in \{-1,0,1\}$. 
@@ -348,7 +349,7 @@ for all $g,e$ manifolds and polarizations $q \in \{-1,0,1\}$.
 In the full Hilbert space, these operators act trivially on the motion:
 
 $$
-C_{e \to g}^{(q)} \rightarrow C_{e \to g}^{(q)} \otimes \mathbb{I}_{\text{motion}}.
+L_{e \to g}^{(q)} \rightarrow L_{e \to g}^{(q)} \otimes \mathbb{I}_{\text{motion}}.
 $$
 
 ---
