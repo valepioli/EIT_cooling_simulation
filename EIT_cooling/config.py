@@ -10,7 +10,7 @@ Delta_p = Delta_c
 # Stark shift condition for EIT cooling
 Omega_c = np.sqrt(4 * np.abs(Delta_c) * nu) 
 eta = 0.35          # Lamb-Dicke parameter
-Omega_p = 0.3 * gamma 
+Omega_p = 0.1 * gamma 
 N_vib = 25          
 
 # --- SIMULATION PARAMETERS ---

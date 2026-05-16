@@ -57,7 +57,7 @@ def run_simulation():
     for d in det_scan:
         H_at = +d*basis(3,0)*basis(3,0).dag() + config.Delta_c*basis(3,1)*basis(3,1).dag() + \
                (config.Omega_c/2)*(basis(3,2)*basis(3,1).dag() + basis(3,1)*basis(3,2).dag()) + \
-               (0.1/2)*(basis(3,2)*basis(3,0).dag() + basis(3,0)*basis(3,2).dag())
+               (config.Omega_p/2.0)*(basis(3,2)*basis(3,0).dag() + basis(3,0)*basis(3,2).dag())
         
         c_ops_at = [np.sqrt(config.gamma/2)*basis(3,0)*basis(3,2).dag(), 
                     np.sqrt(config.gamma/2)*basis(3,1)*basis(3,2).dag()]
