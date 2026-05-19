@@ -789,7 +789,7 @@ The generated images illustrate the dependence of the EIT cooling dynamics on th
 </p>
 
 * **Image 2 (Ground State Pumping Efficiency):**
-This image tracks the parasitic optical pumping into the uncoupled $F=1$ manifold (solid lines) and spurious $F=2$ Zeeman sublevels (dashed lines). Similar to the absorption profile, the peak of these unwanted populations shifts in frequency space and slightly decreases in amplitude at higher $\Delta_c$ values, confirming that optimal spectral alignment remains the dominant factor for successful cooling.
+This image tracks the parasitic optical pumping into the uncoupled $F=1$ manifold (solid lines) and spurious $F=2$ Zeeman sublevels (dashed lines). The peak of these unwanted populations shifts in frequency space and slightly increases in amplitude at higher $\Delta_c$ values, confirming that optimal spectral alignment remains the dominant factor for successful cooling.
 
 <p align="center">
   <img src="EIT_cooling_Rb/Plot_Fano_esperiments/Delta/plot_3_leakage_grid.png" alt="Delta Optimization" width="800"/>
