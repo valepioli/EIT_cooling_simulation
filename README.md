@@ -831,6 +831,9 @@ We chose $\Delta_c = +9.0 \gamma$ as the optimal operational parameter, as it gu
 # Final Cooling Evolution
 
 By applying the complete set of previously optimized parameters (repumper, probe, and coupling detuning), we studied the overall time evolution of the EIT cooling dynamics. The results demonstrate a highly efficient process, with the system successfully cooling in fewer than $100,000$ steps.
+<p align="center">
+  <img src="EIT_cooling_Rb/images/fano_images/plot_fano_profile_optimized.png" alt="24-Level Fano Spectrum and Pumping Leaks" width="450"/>
+</p>
 
 <p align="center">
   <img src="EIT_cooling_Rb/images/time_evolution/plot_MC_fano_profile_optimized.png" alt=" Optimization" width="800"/>
