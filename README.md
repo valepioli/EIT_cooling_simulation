@@ -847,7 +847,7 @@ We chose $\Delta_c = +9.0 \gamma$ as the optimal operational parameter, as it gu
 
 ---
 
-# Final Cooling Evolution
+## Final Cooling Evolution
 
 By applying the complete set of previously optimized parameters (repumper, probe, and coupling detuning), we studied the overall time evolution of the EIT cooling dynamics. The results demonstrate a highly efficient process, with the system successfully cooling in fewer than $100,000$ steps.
 <p align="center">
@@ -858,3 +858,17 @@ By applying the complete set of previously optimized parameters (repumper, probe
   <img src="EIT_cooling_Rb/images/time_evolution/plot_MC_fano_profile_optimized.png" alt=" Optimization" width="800"/>
 </p>
 The cooling time is reduced to approximately 2 ms.
+
+---
+
+# Cooling Dynamics: Ground States Split Across $F=1$ and $F=2$
+
+Applying the established methodology, evaluating the steady-state Fano profile, optimizing the laser parameters ($\Delta_c = +9\gamma$, $\Omega_p = 0.17\gamma$, $\Omega_r = 1.27\gamma$), and executing the Monte Carlo simulation, we observe the following time evolution for the cooling process.
+
+<p align="center">
+  <img src="EIT_cooling_Rb_F1/images/fano_images/plot_fano_profile.png" alt="24-Level Fano Spectrum and Pumping Leaks" width="450"/>
+</p>
+
+<p align="center">
+  <img src="EIT_cooling_Rb_F1/images/time_evolution/plot_MC_fano_profile.png" alt=" Optimization" width="800"/>
+</p>
