@@ -145,7 +145,10 @@ EIT_Cooling_Project/
 │       │   ├──  ...
 │       └── probe/                                 # probe optimization
 │           └──  ...
-└──  EIT_cooling_Rb_F1/                            #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2
+├──  EIT_cooling_Rb_F1_rep/                        #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2 without repumper
+│    └──...
+│ 
+└──  EIT_cooling_Rb_F1_rep/                        #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2 with repumper
      └──...
 ```
 
@@ -222,7 +225,7 @@ In this setup, the core $\Lambda$-system operates entirely within the $F=2$ mani
 In this setup, the core $\Lambda$-system spans across both ground manifolds, and the repumper cleans up the leakage left behind in $F=2$.
 
 <p align="center">
-  <img src="EIT_cooling_Rb_F1/images/eit_diagram_lambda.png" width="900"/>
+  <img src="EIT_cooling_Rb_F1_rep/images/eit_diagram.png" width="900"/>
 </p>
 
 1. $|F=2, m_F=-2\rangle$ *(Immediately re-absorbs the **Probe** laser)*
@@ -864,9 +867,9 @@ The cooling time is reduced to approximately 2 ms.
 Applying the established methodology, evaluating the steady-state Fano profile, optimizing the laser parameters ($\Delta_c = +9\gamma$, $\Omega_p = 0.17\gamma$, $\Omega_r = 1.27\gamma$), and executing the Monte Carlo simulation, we observe the following time evolution for the cooling process.
 
 <p align="center">
-  <img src="EIT_cooling_Rb_F1/images/fano_images/plot_fano_profile.png" alt="24-Level Fano Spectrum and Pumping Leaks" width="450"/>
+  <img src="EIT_cooling_Rb_F1_rep/images/fano_images/plot_fano_profile.png" alt="24-Level Fano Spectrum and Pumping Leaks" width="450"/>
 </p>
 
 <p align="center">
-  <img src="EIT_cooling_Rb_F1/images/time_evolution/plot_MC_fano_profile.png" alt=" Optimization" width="800"/>
+  <img src="EIT_cooling_Rb_F1_rep/images/time_evolution/plot_MC_fano_profile.png" alt=" Optimization" width="800"/>
 </p>
