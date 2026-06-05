@@ -873,3 +873,9 @@ Applying the established methodology, evaluating the steady-state Fano profile, 
 <p align="center">
   <img src="EIT_cooling_Rb_F1_rep/images/time_evolution/plot_MC_fano_profile.png" alt=" Optimization" width="800"/>
 </p>
+
+We observe that the presence of the repumper is fundamental, otherwise the population is lost to unwanted states (this was with zero magnetic field but the behaviour is the same also with a magnetic field, actually, the Fano profile is worse).
+
+<p align="center">
+  <img src="EIT_cooling_Rb_F1_rep/images/time_evolution/plot_MC_fano_profile_no_B_field_low_n.png" alt=" Optimization" width="800"/>
+</p>
