@@ -104,8 +104,6 @@ A final scheme that sums up the process is found in  "2023- Chow et al. Fano Res
 
 ---
 
----
-
 
 ## Project Structure
 
@@ -147,7 +145,7 @@ EIT_Cooling_Project/
 │       │   ├──  ...
 │       └── probe/                                 # probe optimization
 │           └──  ...
-└──  EIT_cooling_Rb_F1/ #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2
+└──  EIT_cooling_Rb_F1/                            #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2
      └──...
 ```
 
