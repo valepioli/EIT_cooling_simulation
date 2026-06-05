@@ -213,7 +213,7 @@ Depending on how we set up the EIT $\Lambda$-system, we can assign our lasers in
 In this setup, the core $\Lambda$-system operates entirely within the $F=2$ manifold, and the repumper cleans up the leakage into $F=1$.
 
 <p align="center">
-  <img src="EIT_cooling_Rb/images/eit_diagram_config1.png" width="900"/>
+  <img src="EIT_cooling_Rb/images/eit_diagram.png" width="900"/>
 </p>
 
 1. $|F=2, m_F=-2\rangle$ *(Immediately re-absorbs the **Probe** laser)*
