@@ -125,28 +125,30 @@ EIT_Cooling_Project/
 │   ├── results/                                   # Saved .qu numerical arrays
 │   └── plots/                                     # Output animations (.gif .png)
 │
-└── EIT_cooling_Rb/                                # ── 24-LEVEL 87Rb SYSTEM ──
-    ├── config.py                                  # Hyperfine levels, Clebsch-Gordan, B-field parameters
-    ├── fano.py                                    # Steady-state solver for the Fano/Absorption spectrum
-    ├── plot_fano.py                               # Plots the EIT spectrum
-    ├── level_diagram.py                           # Generates graphical level diagrams
-    ├── simulation_n_Rb.py                         # mesolve time evolution solver 
-    ├── simulation_n_Rb_montecarlo.py              # Monte Carlo time evolution solver (mcsolve)
-    ├── plot_n.py                                  # Plots the cooling curve <n> vs time from mesolve data
-    ├── plot_n_MC.py                               # Plots the cooling curve <n> vs time from MC data
-    ├── results_time/                              # Saved mesolve and mcsolve trajectories and plots
-    ├── images/                                    # Output plots and diagrams
-    │
-    ├── results_fano/                              # Saved Fano spectrum data            
-    │
-    └── plot Fano experiments/                                  
-        └── repumper/                              # repumper optimization
-        │   ├──  plot_comparison.py                # Script to overlay & compare multiple repumper sweeps
-        │   └── plot_fano_comparison_all.png       # Output comparative chart
-        └── delta/                                 # Detuning optimization
-        │   ├──  ...
-        └── probe/                                 # probe optimization
-            └──  ...    
+├── EIT_cooling_Rb/                                # ── 24-LEVEL 87Rb SYSTEM with two GS in F=2 ──
+│   ├── config.py                                  # Hyperfine levels, Clebsch-Gordan, B-field parameters
+│   ├── fano.py                                    # Steady-state solver for the Fano/Absorption spectrum
+│   ├── plot_fano.py                               # Plots the EIT spectrum
+│   ├── level_diagram.py                           # Generates graphical level diagrams
+│   ├── simulation_n_Rb.py                         # mesolve time evolution solver 
+│   ├── simulation_n_Rb_montecarlo.py              # Monte Carlo time evolution solver (mcsolve)
+│   ├── plot_n.py                                  # Plots the cooling curve <n> vs time from mesolve data
+│   ├── plot_n_MC.py                               # Plots the cooling curve <n> vs time from MC data
+│   ├── results_time/                              # Saved mesolve and mcsolve trajectories and plots
+│   ├── images/                                    # Output plots and diagrams
+│   │
+│   ├── results_fano/                              # Saved Fano spectrum data            
+│   │
+│   │plot Fano experiments/                                  
+│       └── repumper/                              # repumper optimization
+│       │   ├──  plot_comparison.py                # Script to overlay & compare multiple repumper sweeps
+│       │   └── plot_fano_comparison_all.png       # Output comparative chart
+│       └── delta/                                 # Detuning optimization
+│       │   ├──  ...
+│       └── probe/                                 # probe optimization
+│           └──  ...
+└──  EIT_cooling_Rb_F1/ #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2
+     └──...
 ```
 
 ## 3-Level and 24-Level EIT Cooling: Full Model Description
@@ -199,19 +201,36 @@ $$
 C_{g,e}^{(q)} = \langle F_g, m_g; 1, q \,|\, F_e, m_e \rangle.
 $$
 
-In our case the following levels are used:
+
+
+In the 24-level $^{87}$Rb simulation, we specifically target the extreme "edge" magnetic sublevels (e.g., $m_F = -2$) rather than central states (e.g., $m_F = 0$). This is done to create a **closed optical cycle** by strictly limiting where the atom can decay.
+
+Because of quantum dipole selection rules ($\Delta m_F = 0, \pm 1$), an atom in the excited state $|F'=2, m_F=-2\rangle$ wants to decay to $m_F = -3, -2,$ or $-1$. Since the $m_F = -3$ state does not exist in the ground manifolds, the atom is funneled into exactly **three possible ground states**. 
+
+Depending on how we set up the EIT $\Lambda$-system, we can assign our lasers in one of two possible configurations to handle these three states:
+
+### Configuration 1: Both EIT Ground States in $F=2$
+In this setup, the core $\Lambda$-system operates entirely within the $F=2$ manifold, and the repumper cleans up the leakage into $F=1$.
 
 <p align="center">
-  <img src="EIT_cooling_Rb/images/eit_diagram.png" width="900"/>
+  <img src="EIT_cooling_Rb/images/eit_diagram_config1.png" width="900"/>
 </p>
-
-In the 24-level $^{87}$ Rb simulation, we specifically target the extreme "edge" magnetic sublevels (e.g., $m_F = -2$) rather than central states (e.g., $m_F = 0$). This is done to create a **closed optical cycle** by strictly limiting where the atom can decay.
-
-Because of quantum dipole selection rules ($\Delta m_F = 0, \pm 1$), an atom in the excited state $|F'=2, m_F=-2\rangle$ wants to decay to $m_F = -3, -2,$ or $-1$. Since the $m_F = -3$ state does not exist in the ground manifolds, the atom is funneled into exactly **three possible ground states**:
 
 1. $|F=2, m_F=-2\rangle$ *(Immediately re-absorbs the **Probe** laser)*
 2. $|F=2, m_F=-1\rangle$ *(Immediately re-absorbs the **Coupling** laser)*
 3. $|F=1, m_F=-1\rangle$ *(Rescued by the **Repumper** laser)*
+
+### Configuration 2: EIT Ground States split across $F=2$ and $F=1$
+In this setup, the core $\Lambda$-system spans across both ground manifolds, and the repumper cleans up the leakage left behind in $F=2$.
+
+<p align="center">
+  <img src="EIT_cooling_Rb_F1/images/eit_diagram_config.png" width="900"/>
+</p>
+
+1. $|F=2, m_F=-2\rangle$ *(Immediately re-absorbs the **Probe** laser)*
+2. $|F=1, m_F=-1\rangle$ *(Immediately re-absorbs the **Coupling** laser)*
+3. $|F=2, m_F=-1\rangle$ *(Rescued by the **Repumper** laser)*
+
 
 If we used a central state like $m_F = 0$, the excited atom could decay into **six** different ground states across the $F=1$ and $F=2$ manifolds. Atoms would constantly scatter into "dark" sublevels where the primary lasers cannot reach them, completely breaking the EIT cooling cycle.
 
