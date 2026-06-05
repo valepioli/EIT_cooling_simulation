@@ -137,7 +137,7 @@ EIT_Cooling_Project/
 │   │
 │   ├── results_fano/                              # Saved Fano spectrum data            
 │   │
-│   │plot Fano experiments/                                  
+│   └── plot Fano experiments/                                  
 │       └── repumper/                              # repumper optimization
 │       │   ├──  plot_comparison.py                # Script to overlay & compare multiple repumper sweeps
 │       │   └── plot_fano_comparison_all.png       # Output comparative chart
@@ -222,7 +222,7 @@ In this setup, the core $\Lambda$-system operates entirely within the $F=2$ mani
 In this setup, the core $\Lambda$-system spans across both ground manifolds, and the repumper cleans up the leakage left behind in $F=2$.
 
 <p align="center">
-  <img src="EIT_cooling_Rb_F1/images/eit_diagram_config.png" width="900"/>
+  <img src="EIT_cooling_Rb_F1/images/eit_diagram.png" width="900"/>
 </p>
 
 1. $|F=2, m_F=-2\rangle$ *(Immediately re-absorbs the **Probe** laser)*
