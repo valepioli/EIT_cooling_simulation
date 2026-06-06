@@ -146,10 +146,13 @@ EIT_Cooling_Project/
 │       │   ├──  ...
 │       └── probe/                                 # probe optimization
 │           └──  ...
-├──  EIT_cooling_Rb_F1/                        #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2 without repumper
+├──  EIT_cooling_Rb_F1/                            #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2 without repumper
 │    └──...
 │ 
-└──  EIT_cooling_Rb_F1_rep/                        #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2 with repumper
+├──  EIT_cooling_Rb_F1_rep/                        #same as EIT_cooling_Rb but with one GS in F=1 and one GS in F=2 with repumper
+│    └──...
+│
+└──  EIT_cooling_Rb_F1_axial/                      #same as EIT_cooling_Rb_F1_rep but for the parameters of our real system, axial direction
      └──...
 ```
 
@@ -879,4 +882,23 @@ We observe that the presence of the repumper is fundamental, otherwise the popul
 
 <p align="center">
   <img src="EIT_cooling_Rb_F1/images/time_evolution/plot_MC_fano_profile_no_B_field_low_n.png" alt=" Optimization" width="800"/>
+</p>
+
+---
+
+# Cooling Dynamics: Ground States Split Across F=1 and F=2 REAL PARAMETERS
+
+**📄 Full Analytical Derivations:** You can consult the complete mathematical model and trap derivations here: 
+[Analytical Model: Conveyor Belt and EIT (PDF)](./Conveyor_belt.pdf)
+
+## Axial  direction
+
+Applying the established methodology, but utilizing the exact parameters specific to our experimental setup (Frequency, Lamb Dicke parameter), we evaluated the steady-state Fano profile and optimized the laser parameters ($\Delta_c = +9\gamma$, $\Omega_p = 0.17\gamma$, $\Omega_r = 1.27\gamma$). By executing the Monte Carlo simulation with these specific values, we observe the following time evolution for the cooling process.
+
+<p align="center">
+  <img src="EIT_cooling_Rb_F1_axial/images/fano_images/plot_eit_axial.png" alt="24-Level Fano Spectrum and Pumping Leaks" width="450"/>
+</p>
+
+<p align="center">
+  <img src="EIT_cooling_Rb_F1_axial/images/time_evolution/plot_MC_eit_axial.png" alt="Optimization" width="800"/>
 </p>
