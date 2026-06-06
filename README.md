@@ -2,6 +2,7 @@
 
 ## Status
 Work in progress (models under refinement — results may contain inaccuracies)
+Until now worked on ideal system, now implementing for our setup parameters!!
 
 ---
 
