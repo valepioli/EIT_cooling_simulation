@@ -12,77 +12,63 @@ def plot_results():
     # --- LOAD DATA ---
     try:
         det_list = np.load(os.path.join(results_dir, "det_list.npy"))
-        absorption_total = np.load(os.path.join(results_dir, "abs_tot.npy"))
-        absorption_e2_only = np.load(os.path.join(results_dir, "abs_e2.npy"))
-        pop_leakage_e3 = np.load(os.path.join(results_dir, "leak_e3.npy"))
-        
-        # Load individual m-states
-        pop_g1 = {m: np.load(os.path.join(results_dir, f"pop_g1_m{m}.npy")) for m in [-1, 0, 1]}
-        pop_g2 = {m: np.load(os.path.join(results_dir, f"pop_g2_m{m}.npy")) for m in [-2, -1, 0, 1, 2]}
+        excited_pop_total = np.load(os.path.join(results_dir, "abs_tot.npy"))
     except FileNotFoundError:
         print(f"Error: Could not find results for '{cfg.RUN_NAME}'. Run fano.py first.")
         return
 
-    fig, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(12, 14), sharex=True)
+    # Increase global font sizes for all figures
+    base_fs = 18
+    title_fs = 20
+    plt.rcParams.update({
+        'font.size': base_fs,
+        'axes.titlesize': title_fs,
+        'axes.labelsize': base_fs,
+        'xtick.labelsize': base_fs - 2,
+        'ytick.labelsize': base_fs - 2,
+        'legend.fontsize': base_fs - 2
+    })
 
-    # --- Plot 1: Fano Profile ---
-    line1 = ax1.plot(det_list, absorption_total, "k-", lw=2, alpha=0.2, label="Total Absorption (Raw)")
-    ax1.set_ylabel("Total Excited Pop", color="gray")
+    # --- FIG A: Zoomed profile around carrier and sidebands ---
+    fig_zoom, ax_zoom = plt.subplots(1, 1, figsize=(12, 6))
+    ax_zoom.plot(det_list, excited_pop_total, color='black', lw=2.5, alpha=0.95, label='Excited State Population')
+    ax_zoom.axvline(cfg.Delta_p_center, color='purple', ls='--', alpha=0.9, label='Carrier')
+    ax_zoom.axvline(cfg.Delta_p_center + cfg.nu, color='red', ls=':', alpha=0.9, label='Red Sideband')
+    ax_zoom.axvline(cfg.Delta_p_center - cfg.nu, color='blue', ls=':', alpha=0.9, label='Blue Sideband')
+    ax_zoom.set_xlabel(r"Probe Detuning $\Delta_p$ [$\gamma$]")
+    ax_zoom.set_ylabel('Excited State Population [a.u.]')
+    ax_zoom.set_title(f"Excited State Population (Zoom): {cfg.RUN_NAME}")
+    ax_zoom.grid(True, alpha=0.3)
     
-    ax1_twin = ax1.twinx()
-    line2 = ax1_twin.plot(det_list, absorption_e2_only, "k-", lw=1.5, label="F'=2 Absorption")
-    ax1_twin.set_ylabel("F'=2 Population", color="black")
+    # Zoom limits: shift a bit to the right of center
+    pad = 0.03 * cfg.gamma
+    x_min = cfg.Delta_p_center - cfg.nu - 0.02 * cfg.gamma
+    x_max = cfg.Delta_p_center + cfg.nu + pad
+    ax_zoom.set_xlim(x_min, x_max)
+    ax_zoom.tick_params(axis='both', which='major', labelsize=base_fs - 2)
+    ax_zoom.legend(loc='best')
+    out_zoom = os.path.join(images_dir, f"plot_{cfg.RUN_NAME}.png")
+    fig_zoom.tight_layout()
+    fig_zoom.savefig(out_zoom, dpi=300, bbox_inches='tight')
+    print(f"Zoomed excited state population plot saved to: {out_zoom}")
 
-    # CORRECTION: Carrier in the center, and Sidebands on the sides
-    vline_carrier = ax1.axvline(cfg.Delta_p_center, color="purple", ls="--", alpha=0.7, label=r"Carrier")
-    vline_rsb = ax1.axvline(cfg.Delta_p_center + cfg.nu, color="red", ls=":", alpha=0.7, label=r"Red Sideband")
-    vline_bsb = ax1.axvline(cfg.Delta_p_center - cfg.nu, color="blue", ls=":", alpha=0.7, label=r"Blue Sideband")
+    # --- FIG B: Full profile with no x-limit ---
+    fig_full_unlimited, ax_full_unlimited = plt.subplots(1, 1, figsize=(14, 6))
+    ax_full_unlimited.plot(det_list, excited_pop_total, color='black', lw=2.5, alpha=0.95, label='Excited State Population')
+    ax_full_unlimited.axvline(cfg.Delta_p_center, color='purple', ls='--', alpha=0.9, label='Carrier')
+    ax_full_unlimited.axvline(cfg.Delta_p_center + cfg.nu, color='red', ls=':', alpha=0.9, label='Red Sideband')
+    ax_full_unlimited.axvline(cfg.Delta_p_center - cfg.nu, color='blue', ls=':', alpha=0.9, label='Blue Sideband')
+    ax_full_unlimited.set_xlabel(r"Probe Detuning $\Delta_p$ [$\gamma$]")
+    ax_full_unlimited.set_ylabel('Excited State Population [a.u.]')
+    ax_full_unlimited.set_title(f"Excited State Population Profile: {cfg.RUN_NAME}")
+    ax_full_unlimited.grid(True, alpha=0.3)
+    ax_full_unlimited.tick_params(axis='both', which='major', labelsize=base_fs - 2)
+    ax_full_unlimited.legend(loc='best')
+    out_full_unl = os.path.join(images_dir, f"fano_full_unlimited_{cfg.RUN_NAME}.png")
+    fig_full_unlimited.tight_layout()
+    fig_full_unlimited.savefig(out_full_unl, dpi=300, bbox_inches='tight')
+    print(f"Full (unlimited) profile plot saved to: {out_full_unl}")
 
-    # Merge all labels into the legend of the first plot
-    lines = line1 + line2 + [vline_carrier, vline_rsb, vline_bsb]
-    labels = [l.get_label() for l in lines]
-    ax1.legend(lines, labels, loc="upper left")
-    
-    ax1.set_title(f"Carrier and Sidebands Profile: {cfg.RUN_NAME}")
-    ax1.grid(True, alpha=0.3)
-
-    # --- Plot 2: INDIVIDUAL Ground State Populations ---
-    # Colors for F=2 (Blues/Greens) and F=1 (Reds/Oranges)
-    colors_g2 = ['#1f77b4', '#00ced1', '#2ca02c', '#9467bd', '#e377c2']
-    colors_g1 = ['#d62728', '#ff7f0e', '#8c564b']
-
-    # Plot F=2 manifold (Solid lines)
-    for i, m in enumerate([-2, -1, 0, 1, 2]):
-        ax2.plot(det_list, pop_g2[m], label=f"F=2, m={m}", color=colors_g2[i], ls='-', lw=2)
-
-    # Plot F=1 manifold (Dashed lines)
-    for i, m in enumerate([-1, 0, 1]):
-        ax2.plot(det_list, pop_g1[m], label=f"F=1, m={m}", color=colors_g1[i], ls='--', lw=2)
-
-    ax2.set_ylabel("Population Probability")
-    ax2.set_title("Ground State Dynamics: Optical Pumping into Dark States (t → ∞)")
-    ax2.set_ylim(-0.05, 1.05) 
-    ax2.grid(True, linestyle='--', alpha=0.4)
-    # Put legend outside the plot so it doesn't cover the lines
-    ax2.legend(loc='center left', bbox_to_anchor=(1, 0.5), fontsize='small', title="Magnetic Sublevels")
-
-    # --- Plot 3: Relative Leakage ---
-    relative_leakage = np.divide(
-        pop_leakage_e3, absorption_total, 
-        out=np.zeros_like(pop_leakage_e3), where=np.array(absorption_total) > 1e-8
-    )
-
-    ax3.plot(det_list, relative_leakage * 100, "m-", lw=2, label="Fraction of excitation lost to $F'=3$")
-    ax3.set_xlabel(r"Probe Detuning $\Delta_p$ ($\gamma$ units)")
-    ax3.set_ylabel("Leakage Ratio (%)")
-    ax3.set_title("Efficiency Loss: Relative contribution of off-resonant $F'=3$")
-    ax3.grid(True, alpha=0.3)
-    ax3.legend()
-
-    plt.tight_layout()
-    output_path = os.path.join(images_dir, f"plot_{cfg.RUN_NAME}.png")
-    plt.savefig(output_path, dpi=300, bbox_inches='tight')
-    print(f"Plot saved to: {output_path}")
     plt.show()
 
 if __name__ == "__main__":
