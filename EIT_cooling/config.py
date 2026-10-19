@@ -14,8 +14,8 @@ Omega_p = 0.1 * gamma
 N_vib = 25          
 
 # --- SIMULATION PARAMETERS ---
-t_stop = 3500
-t_points = 200
+t_stop = 7500
+t_points = 250
 t_list = np.linspace(0, t_stop, t_points)
 
 # Initial state: atom in g1, oscillator in Fock state n=15

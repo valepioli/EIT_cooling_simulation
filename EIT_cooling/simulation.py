@@ -51,8 +51,10 @@ def run_simulation():
                      progress_bar=True)
 
     # 4. EIT spectrum (steady-state scan)
+    # Use a broad probe-detuning scan centered on the actual probe detuning, so the
+    # absorption profile covers the full relevant window in units of gamma.
     print("Computing EIT spectrum...")
-    det_scan = np.linspace(config.Delta_c - 1.5, config.Delta_c + 1.5, 400)
+    det_scan = np.linspace(config.Delta_p - 20.0, config.Delta_p + 20.0, 800)
     spec = []
     for d in det_scan:
         H_at = +d*basis(3,0)*basis(3,0).dag() + config.Delta_c*basis(3,1)*basis(3,1).dag() + \
@@ -73,6 +75,7 @@ def run_simulation():
         'det_scan': det_scan,
         'spec': spec,
         'params': {
+            'gamma': config.gamma,
             'Delta_p': config.Delta_p,
             'Delta_c': config.Delta_c,
             'nu': config.nu,

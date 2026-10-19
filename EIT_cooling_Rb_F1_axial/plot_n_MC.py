@@ -89,9 +89,9 @@ def plot_monte_carlo_results():
             ax2.plot(t_list_ms, pop_array, label=state_label)
 
     # Aggiornato il titolo e l'asse Y con la dicitura corretta
-    ax2.set_title(f"Time Evolution of Excited State Population\nRun: {cfg.RUN_NAME} | $\\eta$ = {eta}")
+    ax2.set_title(f"Time Evolution of Atomic Populations\nRun: {cfg.RUN_NAME} | $\\eta$ = {eta}")
     ax2.set_xlabel("Time [ms]")
-    ax2.set_ylabel("Excited State Population")
+    ax2.set_ylabel("State Population")
     ax2.grid(True, linestyle='--', alpha=0.7)
     
     # Sposta la legenda fuori dal grafico

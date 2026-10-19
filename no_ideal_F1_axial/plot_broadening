@@ -1,0 +1,122 @@
+import os
+import numpy as np
+import matplotlib.pyplot as plt
+from qutip import qload
+import config as cfg
+
+# --- PATH SETUP ---
+script_dir = os.path.dirname(os.path.abspath(__file__))
+results_dir = os.path.join(script_dir, "results_time")
+images_dir = os.path.join(script_dir, "images", "time_evolution")
+os.makedirs(images_dir, exist_ok=True)
+
+# --- BROADENING PARAMETERS (Must match your run script) ---
+min_intensity = 0.71
+max_intensity = 1.0
+num_spatial_classes = 5
+intensity_fractions = np.linspace(min_intensity, max_intensity, num_spatial_classes)
+weights = np.ones(num_spatial_classes) / num_spatial_classes
+
+# --- PLOT LIMITS ---
+X_LIMIT_PHONONS = (0, 500000) 
+X_LIMIT_POPULATIONS = (0, 500000)
+
+def plot_inhomogeneous_broadening():
+    print("--- Loading Inhomogeneous Broadening Data ---")
+    
+    t_list = None
+    avg_n_expect = None
+    avg_populations = {}
+    
+    # Create the figure with 2 subplots
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(12, 10))
+    
+    fig.suptitle(f"Macroscopic EIT Cooling Dynamics (Inhomogeneous Broadening)\n"
+                 f"Averaged over {num_spatial_classes} spatial classes (Intensity {min_intensity:.2f} to {max_intensity:.2f})", 
+                 fontsize=16, fontweight='bold', y=0.98)
+
+    # 1. Loop through all simulated spatial classes
+    for i, frac in enumerate(intensity_fractions):
+        run_name = f"eit_axial_frac_{frac:.3f}"
+        save_file = os.path.join(results_dir, f"time_evol_MC_{run_name}")
+        
+        try:
+            data = qload(save_file)
+            print(f"[+] Loaded: {run_name}.qu")
+        except FileNotFoundError:
+            print(f"[!] Warning: Data for fraction {frac:.3f} not found. Skipping...")
+            continue
+            
+        # Extract data
+        t_list_current = data['t_list']
+        n_expect = data['n_expect']
+        populations = data.get('populations', {})
+        
+        if t_list is None:
+            t_list = t_list_current
+            avg_n_expect = np.zeros_like(n_expect)
+        
+        # Accumulate the weighted average for phonons
+        avg_n_expect += n_expect * weights[i]
+        
+        # Plot individual spatial classes faintly in the background (Phonons)
+        ax1.plot(t_list, n_expect, color='#1f77b4', alpha=0.2, lw=1)
+        
+        # Accumulate the weighted average for populations
+        for state_label, pop_array in populations.items():
+            if state_label not in avg_populations:
+                avg_populations[state_label] = np.zeros_like(pop_array)
+            avg_populations[state_label] += pop_array * weights[i]
+
+    if t_list is None:
+        print("\n[!] Error: No data files were successfully loaded. Exiting.")
+        return
+
+    # --- SUBPLOT 1: Phonon Number (Average & Background) ---
+    # Plot the final weighted average on top
+    ax1.plot(t_list, avg_n_expect, color='black', linewidth=2.5, label='Weighted Macroscopic Average')
+    
+    # Add a dummy line just for the legend to explain the faint lines
+    ax1.plot([], [], color='#1f77b4', alpha=0.4, lw=1.5, label='Individual Spatial Classes')
+    
+    ax1.set_title("Averaged Phonon Cooling (Thermal Cloud Macroscopic View)", fontsize=14)
+    ax1.set_xlabel("Time [Arbitrary Units]", fontsize=12) 
+    ax1.set_ylabel("Average Phonon Number $\\langle n \\rangle$", fontsize=12)
+    ax1.grid(True, linestyle='--', alpha=0.7)
+    ax1.legend(loc='upper right', fontsize=11)
+    
+    ax1.set_ylim(bottom=0)
+    ax1.set_xlim(X_LIMIT_PHONONS)
+
+    # --- SUBPLOT 2: Atomic Populations (Average only) ---
+    # We plot only the macroscopic average of the populations to avoid extreme visual clutter
+    colors = plt.cm.tab10.colors
+    color_idx = 0
+    
+    for state_label, pop_array in avg_populations.items():
+        # Only plot states that actually get populated
+        if max(pop_array) > 0.01:
+            ax2.plot(t_list, pop_array, color=colors[color_idx % 10], linewidth=2.0, label=f"{state_label} (Avg)")
+            color_idx += 1
+
+    ax2.set_title("Macroscopic Atomic Level Occupancy Dynamics", fontsize=14)
+    ax2.set_xlabel("Time [Arbitrary Units]", fontsize=12)
+    ax2.set_ylabel("State Population Probability", fontsize=12)
+    ax2.grid(True, linestyle='--', alpha=0.7)
+    ax2.legend(loc='center right', fontsize=10, bbox_to_anchor=(1.20, 0.5)) 
+    
+    ax2.set_ylim(-0.05, 1.05) 
+    ax2.set_xlim(X_LIMIT_POPULATIONS) 
+
+    plt.tight_layout()
+    fig.subplots_adjust(top=0.90)
+
+    # --- SAVE AND SHOW ---
+    plot_filename = os.path.join(images_dir, f"plot_MC_broadening_averaged.png")
+    plt.savefig(plot_filename, dpi=300, bbox_inches='tight')
+    print(f"\n[+] Broadening plot successfully saved to: {plot_filename}")
+
+    plt.show()
+
+if __name__ == "__main__":
+    plot_inhomogeneous_broadening()

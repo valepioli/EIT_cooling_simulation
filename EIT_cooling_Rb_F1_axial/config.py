@@ -22,7 +22,7 @@ E_e0 = -229.16 * MHz
 # nu_z,tip = 450 kHz analytically derived in Sec. "Simulation with Axial
 # Experimental Parameters" / Conveyor_belt.pdf). Set nu so that it converts
 # to exactly 450 kHz given gamma/2pi = 6.067 MHz.
-nu = 0.450 / 6.067 * gamma   # -> 450 kHz exactly
+nu = 0.430 / 6.067 * gamma   # -> 450 kHz exactly
 eta = 0.09                  # Axial Lamb-Dicke parameter (probe beam, strong confinement)
 n_phon = 2                  # Initial phonon population derived from Tz = 52.8 uK
 N_vib = 10                  # Manageable Fock space ceiling for n=2

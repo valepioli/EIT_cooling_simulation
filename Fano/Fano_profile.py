@@ -1,6 +1,20 @@
+import os
 import numpy as np
 import matplotlib.pyplot as plt
 from qutip import *
+
+# --- IMPOSTAZIONI GRAFICHE (Coerenti con gli altri script) ---
+base_fs = 18
+title_fs = 20
+plt.rcParams.update({
+    'font.size': base_fs,
+    'axes.titlesize': title_fs,
+    'axes.labelsize': base_fs,
+    'xtick.labelsize': base_fs - 2,
+    'ytick.labelsize': base_fs - 2,
+    'legend.fontsize': base_fs - 2,
+    'lines.linewidth': 2.5
+})
 
 # Parameters taken from FIG. 2 caption of the PDF:
 # Delta = 2.5 * gamma
@@ -30,7 +44,7 @@ c_ops = [np.sqrt(gamma/2) * g1 * e.dag(),
 # 3. Probe detuning scan (Delta_P)
 # Scan around atomic resonance
 detuning_probe_list = np.linspace(-2 * gamma, 5 * gamma, 500)
-absorption = []
+excited_pop = []
 
 for dp in detuning_probe_list:
     # Hamiltonian in rotating frame (Eq. 3 and 4 of the PDF)
@@ -42,23 +56,26 @@ for dp in detuning_probe_list:
     
     rho_ss = steadystate(H, c_ops)
     
-    # Absorption I(Delta_P) is proportional to excited state population
-    absorption.append(expect(e * e.dag(), rho_ss))
+    # Excited state population replaces the generic 'absorption'
+    excited_pop.append(expect(e * e.dag(), rho_ss))
 
 # 4. Plot for comparison with FIG. 2
-plt.figure(figsize=(8, 5))
-plt.plot(detuning_probe_list, absorption, color='black', lw=1.5)
-plt.axvline(Delta, color='red', linestyle='--', label="Two-photon resonance (Dark state)")
-plt.title("Excitation Spectrum")
-plt.xlabel("Probe Detuning $\Delta_P / \gamma$")
-plt.ylabel("Excitation $I(\Delta_P)$")
-plt.grid(True, alpha=0.2)
-plt.legend()
+fig, ax = plt.subplots(figsize=(12, 6))
+
+ax.plot(detuning_probe_list, excited_pop, color='black', alpha=0.95, label='Excited State Population')
+ax.axvline(Delta, color='red', linestyle='--', alpha=0.9, label="Two-Photon Resonance (Dark State)")
+
+ax.set_title("Excited State Population Profile (3-Level System)")
+ax.set_xlabel(r"Probe Detuning $\Delta_p$ [$\gamma$]")
+ax.set_ylabel("Excited State Population [a.u.]")
+ax.grid(True, alpha=0.3)
+ax.legend(loc='best')
 
 # --- SAVE SECTION ---
 # Save image in current directory
 filename = "fano_profile.png"
-plt.savefig(filename, dpi=300, bbox_inches='tight')
+fig.tight_layout()
+fig.savefig(filename, dpi=300, bbox_inches='tight')
 print(f"Plot saved as {filename}")
 # ---------------------
 
